@@ -1,0 +1,7 @@
+pism-phoenix-annotations
+pism-phoenix-models
+pism-phoenix-utils
+    依赖、
+pism-phoenix-core
+pism-phoenix-starter
+pism-parrot
