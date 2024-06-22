@@ -1,5 +1,6 @@
 package cn.com.pism.phoenix.models.jackson.serializer;
 
+import cn.com.pism.phoenix.utils.Jackson;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -22,7 +23,7 @@ public class ToStringSerializer extends JsonSerializer<Object> {
             if (ClassUtils.isPrimitiveOrWrapper(value.getClass())) {
                 res = String.valueOf(value);
             } else {
-//                res = Jackson.toJsonString(value);
+                res = Jackson.toJsonString(value);
             }
         }
         if (res != null) {

@@ -26,6 +26,17 @@
         </dependency>
 
         <dependency>
+            <groupId>cn.com.pism</groupId>
+            <artifactId>pism-phoenix-exception</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
         </dependency>
