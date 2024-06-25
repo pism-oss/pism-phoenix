@@ -1,1 +1,5 @@
 
+knife4j:
+  enable: true
+  setting:
+    enable-version: true
