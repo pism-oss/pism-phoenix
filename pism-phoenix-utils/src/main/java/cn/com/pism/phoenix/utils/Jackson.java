@@ -1,6 +1,6 @@
 package cn.com.pism.phoenix.utils;
 
-import cn.com.pism.phoenix.utils.exception.PmnxException;
+import cn.com.pism.phoenix.exception.PmnxException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

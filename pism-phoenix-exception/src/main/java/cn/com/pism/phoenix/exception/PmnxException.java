@@ -5,6 +5,9 @@ package cn.com.pism.phoenix.exception;
  * @since 24-06-22 18:19
  */
 public class PmnxException extends RuntimeException {
+
+    private final ErrorCode errorCode = null;
+
     public PmnxException() {
     }
 
