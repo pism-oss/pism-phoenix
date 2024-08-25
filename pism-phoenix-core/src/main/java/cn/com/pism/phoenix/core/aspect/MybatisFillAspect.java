@@ -13,12 +13,12 @@ import java.util.Date;
  * @since 24-08-25 01:59
  */
 @Component
-@Aspect
 @Slf4j
+@Aspect
 public class MybatisFillAspect extends EntityFillAspect {
 
     @Override
-    protected void doEnhance(Object o) {
+    public void doEnhance(Object o) {
         if (o instanceof ComEntity comEntity) {
 
             //当前系统时间

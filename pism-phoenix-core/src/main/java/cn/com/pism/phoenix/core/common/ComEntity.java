@@ -51,18 +51,17 @@ public class ComEntity {
      * 逻辑删除标志位，1代表删除，0代表未删除
      */
     @TableField(value = "dlt")
-    private Boolean dlt;
-
+    private boolean dlt;
 
     public static final String COL_ID = "id";
 
-    public static final String COL_CREATE_USER = "create_user";
+    public static final String COL_CREATE_BY = "create_by";
 
-    public static final String COL_UPDATE_USER = "update_user";
+    public static final String COL_UPDATE_BY = "update_by";
 
     public static final String COL_CREATE_TIME = "create_time";
 
     public static final String COL_UPDATE_TIME = "update_time";
 
-    public static final String COL_IS_DELETE = "is_delete";
+    public static final String COL_DLT = "dlt";
 }
