@@ -14,7 +14,6 @@
         <module>pism-phoenix-models</module>
         <module>pism-phoenix-core</module>
         <module>pism-phoenix-spring-boot-starter</module>
-        <module>pism-phoenix-exception</module>
     </modules>
 
     <properties>
@@ -50,12 +49,6 @@
             <dependency>
                 <groupId>cn.com.pism</groupId>
                 <artifactId>pism-phoenix-models</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cn.com.pism</groupId>
-                <artifactId>pism-phoenix-exception</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -118,6 +111,19 @@
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>4.5.0</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>3.5.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.com.pism</groupId>
+                <artifactId>pism-exception</artifactId>
+                <version>1.0.1</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

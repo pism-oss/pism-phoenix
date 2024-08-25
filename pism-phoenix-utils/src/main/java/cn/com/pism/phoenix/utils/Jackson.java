@@ -1,6 +1,6 @@
 package cn.com.pism.phoenix.utils;
 
-import cn.com.pism.phoenix.exception.PmnxException;
+import cn.com.pism.exception.PismException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,7 +64,7 @@ public class Jackson {
             return instance().writeValueAsString(object);
         } catch (JsonProcessingException e) {
             log.error(e.getMessage(), e);
-            throw new PmnxException(e);
+            throw new PismException(e);
         }
     }
 
@@ -83,7 +83,7 @@ public class Jackson {
             return instance1().writeValueAsString(object);
         } catch (JsonProcessingException e) {
             log.error(e.getMessage(), e);
-            throw new PmnxException(e);
+            throw new PismException(e);
         }
     }
 
@@ -102,7 +102,7 @@ public class Jackson {
         try {
             return instance().readValue(json, instance().getTypeFactory().constructCollectionType(List.class, clazz));
         } catch (JsonProcessingException e) {
-            throw new PmnxException(e);
+            throw new PismException(e);
         }
     }
 

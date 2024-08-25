@@ -26,11 +26,6 @@
         </dependency>
 
         <dependency>
-            <groupId>cn.com.pism</groupId>
-            <artifactId>pism-phoenix-exception</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <scope>provided</scope>
@@ -58,8 +53,7 @@
 
         <dependency>
             <groupId>cn.com.pism</groupId>
-            <artifactId>pism-phoenix-exception</artifactId>
-            <scope>provided</scope>
+            <artifactId>pism-exception</artifactId>
         </dependency>
     </dependencies>
 

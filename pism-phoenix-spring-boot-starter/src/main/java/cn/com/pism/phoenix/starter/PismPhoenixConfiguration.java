@@ -1,5 +1,6 @@
 package cn.com.pism.phoenix.starter;
 
+import cn.com.pism.mybatis.starter.annotation.EnablePismMybatisPlus;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,5 +16,7 @@ import org.springframework.context.annotation.Configuration;
         }
 )
 @EnableCaching
+@EnablePismMybatisPlus
+//@EnableEzasse
 public class PismPhoenixConfiguration {
 }
