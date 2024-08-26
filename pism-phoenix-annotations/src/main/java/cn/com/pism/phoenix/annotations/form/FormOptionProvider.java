@@ -1,6 +1,6 @@
 package cn.com.pism.phoenix.annotations.form;
 
-import cn.com.pism.phoenix.annotations.model.FormOptionVo;
+import cn.com.pism.phoenix.annotations.form.model.FormOptionVo;
 
 import java.util.List;
 

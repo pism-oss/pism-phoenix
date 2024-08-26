@@ -1,7 +1,7 @@
 package cn.com.pism.phoenix.core.util;
 
 import cn.com.pism.phoenix.annotations.form.*;
-import cn.com.pism.phoenix.annotations.model.*;
+import cn.com.pism.phoenix.annotations.form.model.*;
 import cn.com.pism.phoenix.utils.CollectionExUtil;
 import cn.com.pism.phoenix.utils.ObjectExUtil;
 import lombok.RequiredArgsConstructor;

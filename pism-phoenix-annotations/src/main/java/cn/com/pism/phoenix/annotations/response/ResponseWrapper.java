@@ -1,4 +1,4 @@
-package cn.com.pism.phoenix.annotations;
+package cn.com.pism.phoenix.annotations.response;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

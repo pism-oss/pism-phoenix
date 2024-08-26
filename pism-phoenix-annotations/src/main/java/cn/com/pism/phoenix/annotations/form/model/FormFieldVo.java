@@ -1,4 +1,4 @@
-package cn.com.pism.phoenix.annotations.model;
+package cn.com.pism.phoenix.annotations.form.model;
 
 import cn.com.pism.phoenix.annotations.form.FormFieldType;
 import io.swagger.v3.oas.annotations.media.Schema;
