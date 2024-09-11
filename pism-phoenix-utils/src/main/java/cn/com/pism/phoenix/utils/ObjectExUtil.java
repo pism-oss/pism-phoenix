@@ -18,6 +18,25 @@ public class ObjectExUtil {
     private ObjectExUtil() {
     }
 
+    public static <T> boolean isNotBlank(T t) {
+        switch (t) {
+            case null -> {
+                return false;
+            }
+
+            case String s -> {
+                return StringUtils.isNotBlank(s);
+            }
+
+            case List<?> list -> {
+                return CollectionUtils.isNotEmpty(list);
+            }
+
+            default -> {
+                return true;
+            }
+        }
+    }
 
     public static <T> void isBlank(T t, Runnable isBlank) {
         boolean isNull = t == null

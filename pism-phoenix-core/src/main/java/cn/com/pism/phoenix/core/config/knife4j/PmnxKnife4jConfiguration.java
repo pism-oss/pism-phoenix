@@ -1,4 +1,4 @@
-package cn.com.pism.phoenix.core.config;
+package cn.com.pism.phoenix.core.config.knife4j;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

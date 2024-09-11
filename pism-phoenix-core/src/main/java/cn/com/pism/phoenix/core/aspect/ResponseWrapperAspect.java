@@ -19,6 +19,11 @@ public class ResponseWrapperAspect {
     private final ResponseWrapperEnhancer responseWrapperEnhancer;
 
     @Pointcut("execution(* *..controller..*.*(..))")
+    public void controllerPackage() {
+        // do nothing
+    }
+
+    @Pointcut("within(*..*Controller)")
     public void controllerMethods() {
         // do nothing
     }
@@ -41,7 +46,7 @@ public class ResponseWrapperAspect {
         // do nothing
     }
 
-    @Around("controllerMethods() || wrapperAnnotation() || wrapperWithIn()")
+    @Around("controllerPackage() ||controllerMethods()|| wrapperAnnotation() || wrapperWithIn()")
     public Object wrapResponse(ProceedingJoinPoint joinPoint) throws Throwable {
         return responseWrapperEnhancer.enhance(joinPoint);
     }
