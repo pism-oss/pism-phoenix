@@ -18,16 +18,40 @@ public class ResponseWrapperAspect {
 
     private final ResponseWrapperEnhancer responseWrapperEnhancer;
 
+    /**
+     * <p>
+     * 切点：所有controller包下所有类的方法
+     * </p>
+     * by perccyking
+     *
+     * @since 24-09-12 01:25
+     */
     @Pointcut("execution(* *..controller..*.*(..))")
     public void controllerPackage() {
         // do nothing
     }
 
+    /**
+     * <p>
+     * 切点：所有Controller类中的方法
+     * </p>
+     * by perccyking
+     *
+     * @since 24-09-12 01:25
+     */
     @Pointcut("within(*..*Controller)")
     public void controllerMethods() {
         // do nothing
     }
 
+    /**
+     * <p>
+     * 切点：被{@code ResponseWrapper} 注解的方法
+     * </p>
+     * by perccyking
+     *
+     * @since 24-09-12 01:26
+     */
     @Pointcut("@annotation(cn.com.pism.phoenix.annotations.response.ResponseWrapper)")
     public void wrapperAnnotation() {
         // do nothing
