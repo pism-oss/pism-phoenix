@@ -3,8 +3,6 @@ package cn.com.pism.phoenix.core.config.security;
 import cn.com.pism.exception.PismException;
 import cn.com.pism.phoenix.core.config.PmnxProperties;
 import cn.com.pism.phoenix.core.service.PmnxSecurityService;
-import cn.com.pism.phoenix.core.util.LocalCacheUtil;
-import cn.com.pism.phoenix.models.bo.security.PmnxSecurityResourceCodeBo;
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.router.SaRouter;
@@ -18,10 +16,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static cn.com.pism.phoenix.core.config.PmnxErrorCode.CANNOT_ACCESS;
-import static cn.com.pism.phoenix.core.constant.PmnxSecurityConstants.*;
 import static cn.dev33.satoken.util.StrFormatter.format;
 
 /**
@@ -38,8 +34,6 @@ public class SaTokenConfigure implements WebMvcConfigurer {
     private final PmnxProperties pmnxProperties;
 
     private final PmnxSecurityService pmnxSecurityService;
-
-    private final LocalCacheUtil localCacheUtil;
 
     private static final String PATH_ALL = "/**";
 
@@ -73,9 +67,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
     }
 
     private void checkResourcePermission() {
-        List<PmnxSecurityResourceCodeBo> resourceCodeBos
-                = localCacheUtil.getOrUpdate(RESOURCE_CODE_LOCAL_CACHE_KEY, pmnxSecurityService::getResourceCode, 24, TimeUnit.HOURS);
-        resourceCodeBos.forEach(resourceCodeBo ->
+        pmnxSecurityService.getResourceCode().forEach(resourceCodeBo ->
                 SaRouter.match(resourceCodeBo.getResource())
                         .check(() -> StpUtil.checkPermission(resourceCodeBo.getResource()))
                         .stop());
@@ -92,7 +84,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
     private void checkBlacklist() {
         List<String> blacklist = new ArrayList<>();
         blacklist.addAll(pmnxProperties.getSecurity().getBlacklist());
-        blacklist.addAll(localCacheUtil.getOrUpdate(BLACK_LIST_LOCAL_CACHE_KEY, pmnxSecurityService::getBlacklist, 24, TimeUnit.HOURS));
+        blacklist.addAll(pmnxSecurityService.getBlacklist());
         SaRouter.match(blacklist)
                 .check(() -> {
                     throw new PismException(CANNOT_ACCESS);
@@ -111,9 +103,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
     private void checkWhitelist() {
         List<String> whitelist = new ArrayList<>();
         whitelist.addAll(pmnxProperties.getSecurity().getWhitelist());
-        whitelist.addAll(localCacheUtil.getOrUpdate(WHITE_LIST_LOCAL_CACHE_KEY,
-                pmnxSecurityService::getWhitelist,
-                24, TimeUnit.HOURS));
+        whitelist.addAll(pmnxSecurityService.getWhitelist());
         SaRouter.match(whitelist)
                 .check(() -> log.info(format("anonymous url:{}", SaHolder.getRequest().getRequestPath())))
                 .stop();
