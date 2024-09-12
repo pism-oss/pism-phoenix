@@ -7,7 +7,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
- * 用户
+ * 角色
  *
  * @author perccyking
  * @since 24-09-12 13:20
@@ -18,33 +18,29 @@ import lombok.experimental.Accessors;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "pmnx_user")
-public class PmnxUser extends ComEntity {
+@TableName(value = "pmnx_role")
+public class PmnxRole extends ComEntity {
     /**
-     * 账号
+     * 角色编码
      */
-    @TableField(value = "account")
-    private String account;
+    @TableField(value = "role_code")
+    private String roleCode;
 
     /**
-     * 邮箱
+     * 角色名称
      */
-    @TableField(value = "email")
-    private String email;
+    @TableField(value = "role_name")
+    private String roleName;
 
     /**
      * 是否启用，1：启用，0：禁用，默认启用
      */
     @TableField(value = "enabled")
-    @Builder.Default
-    private boolean enabled = true;
+    private Boolean enabled;
 
-    public static final String COL_ACCOUNT = "account";
+    public static final String COL_ROLE_CODE = "role_code";
 
-    public static final String COL_EMAIL = "email";
-
-    public static final String COL_PASSWORD = "password";
+    public static final String COL_ROLE_NAME = "role_name";
 
     public static final String COL_ENABLED = "enabled";
-
 }

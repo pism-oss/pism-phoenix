@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.pism.phoenix.core.mapper.PmnxRoleResourceMapper">
+    <resultMap id="BaseResultMap" type="cn.com.pism.phoenix.core.entity.PmnxRoleResource">
+        <!--@mbg.generated-->
+        <!--@Table pmnx_role_resource-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="role_id" jdbcType="BIGINT" property="roleId"/>
+        <result column="resource_id" jdbcType="BIGINT" property="resourceId"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="dlt" jdbcType="BIT" property="dlt"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id,
+        role_id,
+        resource_id,
+        create_by,
+        update_by,
+        create_time,
+        update_time,
+        dlt
+    </sql>
+</mapper>
