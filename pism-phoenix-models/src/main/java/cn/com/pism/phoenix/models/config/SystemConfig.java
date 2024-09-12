@@ -1,4 +1,4 @@
-package cn.com.pism.phoenix.core.config;
+package cn.com.pism.phoenix.models.config;
 
 import org.apache.commons.lang3.StringUtils;
 

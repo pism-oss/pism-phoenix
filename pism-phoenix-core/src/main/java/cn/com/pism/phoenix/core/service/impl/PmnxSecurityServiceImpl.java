@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static cn.com.pism.phoenix.core.constant.PmnxSecurityConstants.*;
+import static cn.com.pism.phoenix.models.constant.PmnxSecurityConstants.*;
 
 /**
  * @author perccyking

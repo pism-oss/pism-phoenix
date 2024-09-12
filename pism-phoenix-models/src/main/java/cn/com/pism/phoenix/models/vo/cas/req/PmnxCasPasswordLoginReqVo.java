@@ -14,13 +14,13 @@ public class PmnxCasPasswordLoginReqVo {
     /**
      * 账号
      */
-    @Schema(description = "账号-cas公钥加密")
+    @Schema(description = "账号-rsa公钥加密")
     private String account;
 
     /**
      * 密码
      */
-    @Schema(description = "密码-cas公钥加密")
+    @Schema(description = "密码-rsa公钥加密")
     private String password;
 
     /**

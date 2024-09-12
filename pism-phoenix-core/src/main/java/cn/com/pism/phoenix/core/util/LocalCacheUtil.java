@@ -43,7 +43,7 @@ public class LocalCacheUtil {
      * @param timeUnit    时间单位
      * @return 缓存
      */
-    public <T> T getOrUpdate(String key, Supplier<T> getSupplier, long expire, TimeUnit timeUnit) {
+    public <T> T getOrUpdate(String key, Supplier<T> getSupplier, long expire, TimeUnit timeUnit, TypeReference<T> typeReference) {
         //获取本地缓存对象
         Cache<String, String> cache = LocalCacheHelper.getCache(key);
 
@@ -69,8 +69,7 @@ public class LocalCacheUtil {
             try {
 
                 //本地缓存有数据，直接序列化返回
-                return Jackson.instance().readValue(cacheValue, new TypeReference<>() {
-                });
+                return Jackson.instance().readValue(cacheValue, typeReference);
             } catch (JsonProcessingException e) {
 
                 //序列化失败，删除本地缓存
@@ -99,8 +98,8 @@ public class LocalCacheUtil {
         return value;
     }
 
-    public <T> T getOrUpdate(String key, Supplier<T> getSupplier, long timeout) {
-        return getOrUpdate(key, getSupplier, timeout, TimeUnit.MILLISECONDS);
+    public <T> T getOrUpdate(String key, Supplier<T> getSupplier, long timeout, TypeReference<T> typeReference) {
+        return getOrUpdate(key, getSupplier, timeout, TimeUnit.MILLISECONDS, typeReference);
     }
 
     /**

@@ -26,4 +26,10 @@
         update_time,
         dlt
     </sql>
+
+    <select id="getPasswordByAccount" resultType="java.lang.String">
+        SELECT password
+        FROM pmnx_user
+        WHERE account = #{account}
+    </select>
 </mapper>

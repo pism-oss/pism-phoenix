@@ -33,7 +33,7 @@ public class PmnxResource extends ComEntity {
     private String resourceName;
 
     /**
-     * 资源类型
+     * 资源类型 0:接口，1:目录，2:按钮
      */
     @TableField(value = "resource_type")
     private String resourceType;

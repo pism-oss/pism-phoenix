@@ -2,8 +2,9 @@ package cn.com.pism.phoenix.core.aspect;
 
 import cn.com.pism.exception.PismException;
 import cn.com.pism.phoenix.annotations.cache.PmnxLocalCache;
-import cn.com.pism.phoenix.core.config.SystemConfig;
 import cn.com.pism.phoenix.core.util.LocalCacheUtil;
+import cn.com.pism.phoenix.models.config.SystemConfig;
+import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +17,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
 /**
  * @author perccyking
@@ -62,7 +64,13 @@ public class PmnxLocalCacheAspect {
 
                 //尝试获取或更新缓存数据
                 return localCacheUtil.getOrUpdate(cacheKey, () -> joinProceed(joinPoint),
-                        pmnxLocalCache.expire(), pmnxLocalCache.timeUnit());
+                        pmnxLocalCache.expire(), pmnxLocalCache.timeUnit(), new TypeReference<>() {
+
+                            @Override
+                            public Type getType() {
+                                return method.getReturnType();
+                            }
+                        });
             }
         }
 

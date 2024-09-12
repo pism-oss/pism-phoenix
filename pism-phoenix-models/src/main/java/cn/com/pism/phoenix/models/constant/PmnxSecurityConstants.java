@@ -1,6 +1,6 @@
-package cn.com.pism.phoenix.core.constant;
+package cn.com.pism.phoenix.models.constant;
 
-import cn.com.pism.phoenix.core.config.SystemConfig;
+import cn.com.pism.phoenix.models.config.SystemConfig;
 
 /**
  * @author perccyking

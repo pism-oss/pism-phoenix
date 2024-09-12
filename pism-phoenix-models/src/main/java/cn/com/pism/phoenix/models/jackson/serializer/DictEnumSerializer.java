@@ -1,6 +1,6 @@
 package cn.com.pism.phoenix.models.jackson.serializer;
 
-import cn.com.pism.phoenix.annotations.seri.DictEnumSerialize;
+import cn.com.pism.phoenix.annotations.serialize.DictEnumSerialize;
 import cn.com.pism.phoenix.models.enums.DictEnum;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonStreamContext;

@@ -30,14 +30,15 @@ public class CacheUtil {
      * </p>
      * by perccyking
      *
-     * @param key         : 缓存key
-     * @param getSupplier : 缓存未命中
-     * @param timeout     : 过期时间
-     * @param timeUnit    : 过期时间单位
+     * @param key           : 缓存key
+     * @param getSupplier   : 缓存未命中
+     * @param timeout       : 过期时间
+     * @param timeUnit      : 过期时间单位
+     * @param typeReference : 类型
      * @return {@link T} 缓存值
      * @since 24-09-09 15:22
      */
-    public <T> T getOrUpdate(String key, Supplier<T> getSupplier, long timeout, TimeUnit timeUnit) {
+    public <T> T getOrUpdate(String key, Supplier<T> getSupplier, long timeout, TimeUnit timeUnit, TypeReference<T> typeReference) {
 
         // 从Redis获取缓存值
         String cacheValue = stringRedisTemplate.opsForValue().get(key);
@@ -47,8 +48,7 @@ public class CacheUtil {
             try {
 
                 // 反序列化缓存值并返回
-                return Jackson.instance().readValue(cacheValue, new TypeReference<>() {
-                });
+                return Jackson.instance().readValue(cacheValue, typeReference);
             } catch (JsonProcessingException e) {
 
                 // 处理反序列化失败的情况
@@ -77,14 +77,15 @@ public class CacheUtil {
      * </p>
      * by perccyking
      *
-     * @param key         : 缓存key
-     * @param getSupplier : 缓存未命中
-     * @param timeout     : 过期时间 毫秒
+     * @param key           : 缓存key
+     * @param getSupplier   : 缓存未命中
+     * @param timeout       : 过期时间 毫秒
+     * @param typeReference : 类型
      * @return {@link T}
      * @since 24-09-09 15:24
      */
-    public <T> T getOrUpdate(String key, Supplier<T> getSupplier, long timeout) {
-        return getOrUpdate(key, getSupplier, timeout, TimeUnit.MILLISECONDS);
+    public <T> T getOrUpdate(String key, Supplier<T> getSupplier, long timeout, TypeReference<T> typeReference) {
+        return getOrUpdate(key, getSupplier, timeout, TimeUnit.MILLISECONDS, typeReference);
     }
 
     /**
@@ -93,12 +94,13 @@ public class CacheUtil {
      * </p>
      * by perccyking
      *
-     * @param key         : 缓存key
-     * @param getSupplier : 缓存未命中
+     * @param key           : 缓存key
+     * @param getSupplier   : 缓存未命中
+     * @param typeReference : 类型
      * @return {@link T}
      * @since 24-09-09 15:27
      */
-    public <T> T getOrUpdate(String key, Supplier<T> getSupplier) {
-        return getOrUpdate(key, getSupplier, -1L);
+    public <T> T getOrUpdate(String key, Supplier<T> getSupplier, TypeReference<T> typeReference) {
+        return getOrUpdate(key, getSupplier, -1L, typeReference);
     }
 }

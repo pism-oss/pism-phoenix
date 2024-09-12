@@ -9,6 +9,7 @@ CREATE TABLE table_demo
     dlt         BIT       DEFAULT b'0'              NULL COMMENT '逻辑删除标志位'
 ) COMMENT 'table demo';
 
+-- TABLE(pmnx_user)
 CREATE TABLE pmnx_user
 (
     id          BIGINT                              NOT NULL COMMENT '主键id'

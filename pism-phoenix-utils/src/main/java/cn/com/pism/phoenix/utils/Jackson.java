@@ -102,6 +102,16 @@ public class Jackson {
         try {
             return instance().readValue(json, instance().getTypeFactory().constructCollectionType(List.class, clazz));
         } catch (JsonProcessingException e) {
+            log.error(e.getMessage(), e);
+            throw new PismException(e);
+        }
+    }
+
+    public static <T> T parseObject(String json, Class<T> clazz) {
+        try {
+            return instance().readValue(json, clazz);
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage(), e);
             throw new PismException(e);
         }
     }

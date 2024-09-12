@@ -1,4 +1,4 @@
-package cn.com.pism.phoenix.annotations.seri;
+package cn.com.pism.phoenix.annotations.serialize;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
