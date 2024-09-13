@@ -1,8 +1,11 @@
 package cn.com.pism.phoenix.core.service.impl;
 
 import cn.com.pism.phoenix.annotations.cache.PmnxLocalCache;
+import cn.com.pism.phoenix.core.service.PmnxResourceService;
+import cn.com.pism.phoenix.core.service.PmnxRoleService;
 import cn.com.pism.phoenix.core.service.PmnxSecurityService;
 import cn.com.pism.phoenix.models.bo.security.PmnxSecurityResourceCodeBo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +17,10 @@ import static cn.com.pism.phoenix.models.constant.PmnxSecurityConstants.*;
  * @since 24-09-09 16:09
  */
 @Service
+@RequiredArgsConstructor
 public class PmnxSecurityServiceImpl implements PmnxSecurityService {
 
+    private final PmnxResourceService pmnxResourceService;
 
     @Override
     public List<String> getRolePermission(String roleId) {
@@ -42,6 +47,6 @@ public class PmnxSecurityServiceImpl implements PmnxSecurityService {
     @Override
     @PmnxLocalCache(RESOURCE_CODE_LOCAL_CACHE_KEY)
     public List<PmnxSecurityResourceCodeBo> getResourceCode() {
-        return List.of();
+        return pmnxResourceService.getResourceCode();
     }
 }

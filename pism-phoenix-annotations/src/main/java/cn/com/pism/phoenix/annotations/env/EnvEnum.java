@@ -29,7 +29,7 @@ public enum EnvEnum {
     /**
      * 生产环境
      */
-    PROD("prod");;
+    PROD("prod");
     private final String value;
 
 }

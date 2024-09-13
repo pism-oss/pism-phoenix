@@ -3,7 +3,6 @@ package cn.com.pism.phoenix.core.controller;
 import cn.com.pism.exception.PismException;
 import cn.com.pism.phoenix.annotations.env.Env;
 import cn.com.pism.phoenix.annotations.env.EnvEnum;
-import cn.com.pism.phoenix.core.config.PmnxProperties;
 import cn.com.pism.phoenix.core.service.PmnxCasService;
 import cn.com.pism.phoenix.models.exception.UsernameOrPasswordErrorException;
 import cn.com.pism.phoenix.models.vo.cas.req.PmnxCasPasswordLoginReqVo;
@@ -31,7 +30,6 @@ import org.springframework.web.bind.annotation.*;
 public class PmnxCasController {
 
     private final PmnxCasService pmnxCasService;
-    private final PmnxProperties pmnxProperties;
 
     @Operation(summary = "获取公钥")
     @GetMapping("/public/{keyId}/key")
@@ -39,7 +37,6 @@ public class PmnxCasController {
     public String getPublicKey(@Parameter(description = "密钥id") @PathVariable("keyId") String keyId) {
         return pmnxCasService.getPublicKey(keyId);
     }
-
 
     @Operation(summary = "用户名密码登录")
     @PostMapping("/login")

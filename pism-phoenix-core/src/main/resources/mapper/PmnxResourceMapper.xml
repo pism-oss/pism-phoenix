@@ -34,4 +34,11 @@
         update_time,
         dlt
     </sql>
+
+    <select id="getResourceCode" resultType="cn.com.pism.phoenix.models.bo.security.PmnxSecurityResourceCodeBo">
+        SELECT resource_content AS `resource`, resource_code AS `code`
+        FROM pmnx_resource
+        WHERE dlt = 0
+          AND resource_content IS NOT NULL
+    </select>
 </mapper>
