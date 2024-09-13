@@ -2,10 +2,11 @@ package cn.com.pism.phoenix.core.service.impl;
 
 import cn.com.pism.phoenix.annotations.cache.PmnxLocalCache;
 import cn.com.pism.phoenix.core.service.PmnxResourceService;
-import cn.com.pism.phoenix.core.service.PmnxRoleService;
+import cn.com.pism.phoenix.core.service.PmnxRoleResourceService;
 import cn.com.pism.phoenix.core.service.PmnxSecurityService;
 import cn.com.pism.phoenix.models.bo.security.PmnxSecurityResourceCodeBo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +19,20 @@ import static cn.com.pism.phoenix.models.constant.PmnxSecurityConstants.*;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PmnxSecurityServiceImpl implements PmnxSecurityService {
 
     private final PmnxResourceService pmnxResourceService;
 
+    private final PmnxRoleResourceService pmnxRoleResourceService;
+
     @Override
     public List<String> getRolePermission(String roleId) {
+        try {
+            return pmnxRoleResourceService.getRolePermission(Long.valueOf(roleId));
+        } catch (NumberFormatException e) {
+            log.error("getRolePermission error", e);
+        }
         return List.of();
     }
 

@@ -24,4 +24,13 @@
         update_time,
         dlt
     </sql>
+
+    <select id="getRolePermission" resultType="java.lang.String">
+        SELECT DISTINCT pr.resource_code
+        FROM pmnx_role_resource prr
+                 LEFT JOIN pmnx_resource pr ON prr.resource_id = pr.id
+        WHERE prr.dlt = 0
+          AND pr.dlt = 0
+          AND prr.role_id = #{roleId}
+    </select>
 </mapper>
