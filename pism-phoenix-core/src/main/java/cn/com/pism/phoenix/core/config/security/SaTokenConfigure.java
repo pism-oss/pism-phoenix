@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cn.com.pism.phoenix.core.config.PmnxErrorCode.CANNOT_ACCESS;
+import static cn.com.pism.phoenix.models.exception.PmnxErrorCode.CANNOT_ACCESS;
 import static cn.dev33.satoken.util.StrFormatter.format;
 
 /**

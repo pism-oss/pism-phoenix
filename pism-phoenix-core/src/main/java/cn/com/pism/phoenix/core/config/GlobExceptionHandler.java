@@ -1,5 +1,6 @@
 package cn.com.pism.phoenix.core.config;
 
+import cn.com.pism.exception.PismException;
 import cn.com.pism.phoenix.models.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
@@ -28,5 +29,16 @@ public class GlobExceptionHandler {
             return JsonResult.failed(e.getLocalizedMessage());
         }
         return JsonResult.failed(defaultMessage);
+    }
+
+    @ExceptionHandler(PismException.class)
+    public JsonResult<Object> pismException(PismException e) {
+        if (e.getErrorCode() != null) {
+            log.error("{}-{}", e.getMessage(), e.getErrorCode().getMsg(), e);
+            return JsonResult.failed(e.getErrorCode());
+        } else {
+            log.error(e.getMessage(), e);
+            return JsonResult.failed(e.getMessage());
+        }
     }
 }

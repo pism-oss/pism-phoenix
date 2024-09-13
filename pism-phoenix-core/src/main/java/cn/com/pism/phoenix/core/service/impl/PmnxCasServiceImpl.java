@@ -1,10 +1,10 @@
 package cn.com.pism.phoenix.core.service.impl;
 
-import cn.com.pism.exception.PismException;
 import cn.com.pism.phoenix.core.entity.PmnxUser;
 import cn.com.pism.phoenix.core.service.PmnxCasService;
 import cn.com.pism.phoenix.core.service.PmnxRsaService;
 import cn.com.pism.phoenix.core.service.PmnxUserService;
+import cn.com.pism.phoenix.models.exception.UsernameOrPasswordErrorException;
 import cn.com.pism.phoenix.models.vo.cas.PmnxCasTokenVo;
 import cn.com.pism.phoenix.models.vo.cas.req.PmnxCasPasswordLoginReqVo;
 import cn.com.pism.phoenix.models.vo.cas.resp.PmnxCasLoginRespVo;
@@ -15,8 +15,6 @@ import cn.hutool.crypto.asymmetric.RSA;
 import cn.hutool.crypto.digest.BCrypt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import static cn.com.pism.phoenix.core.config.PmnxErrorCode.USERNAME_OR_PASSWORD_ERROR;
 
 /**
  * @author perccyking
@@ -50,7 +48,7 @@ public class PmnxCasServiceImpl implements PmnxCasService {
         //通过账号获取密码
         String password = pmnxUserService.getPasswordByAccount(decryptAccount);
         if (!BCrypt.checkpw(decryptPassword, password)) {
-            throw new PismException(USERNAME_OR_PASSWORD_ERROR);
+            throw new UsernameOrPasswordErrorException();
         }
 
         return doLogin(pmnxUserService.lambdaQuery().eq(PmnxUser::getAccount, decryptAccount).one());
@@ -85,6 +83,23 @@ public class PmnxCasServiceImpl implements PmnxCasService {
      */
     @Override
     public String getPublicKey(String keyId) {
-        return pmnxRsaService.getOrCreateRsaBo(keyId).getPublicKey();
+        return pmnxRsaService.getOrCreateRsaBo(keyId).getPublicKeyBase64();
+    }
+
+    /**
+     * <p>
+     * 使用公钥加密文本
+     * </p>
+     * by perccyking
+     *
+     * @param text  : 文本
+     * @param keyId : 密钥id
+     * @return {@link String}
+     * @since 24-09-13 12:36
+     */
+    @Override
+    public String rsaEncryptPublic(String text, String keyId) {
+        RSA rsa = pmnxRsaService.getOrCreateRsaBo(keyId, 300);
+        return rsa.encryptBase64(text, KeyType.PublicKey);
     }
 }

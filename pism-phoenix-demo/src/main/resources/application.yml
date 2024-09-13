@@ -10,6 +10,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   pmnx:
     cache-prefix: demo
+    env: dev
   data:
     redis:
       port: 36379

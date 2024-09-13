@@ -34,20 +34,37 @@ public class PmnxRsaServiceImpl implements PmnxRsaService {
      * by perccyking
      *
      * @param keyId : 密钥id
-     * @return {@link PmnxRsaBo} rsa
+     * @return {@link RSA} rsa
      * @since 24-09-13 00:24
      */
     @Override
-    public PmnxRsaBo getOrCreateRsaBo(String keyId) {
-        return cacheUtil.getOrUpdate(RSA_CACHE_KEY + keyId, () -> {
+    public RSA getOrCreateRsaBo(String keyId) {
+        return getOrCreateRsaBo(keyId, 60);
+    }
+
+    /**
+     * <p>
+     * 获取或创建rsa
+     * </p>
+     * by perccyking
+     *
+     * @param keyId  : 密钥id
+     * @param expire : 过期时间，单位s
+     * @return {@link RSA} rsa
+     * @since 24-09-13 12:53
+     */
+    @Override
+    public RSA getOrCreateRsaBo(String keyId, long expire) {
+        PmnxRsaBo pmnxRsaBo = cacheUtil.getOrUpdate(RSA_CACHE_KEY + keyId, () -> {
             RSA rsa = new RSA();
             return new PmnxRsaBo(rsa.getPublicKeyBase64(), rsa.getPrivateKeyBase64());
-        }, 60, TimeUnit.SECONDS, new TypeReference<>() {
+        }, expire, TimeUnit.SECONDS, new TypeReference<>() {
             @Override
             public Type getType() {
                 return PmnxRsaBo.class;
             }
         });
+        return new RSA(pmnxRsaBo.getPrivateKey(), pmnxRsaBo.getPublicKey());
     }
 
     /**
@@ -64,6 +81,6 @@ public class PmnxRsaServiceImpl implements PmnxRsaService {
     public RSA getRsaByKeyId(String keyId) {
         String rsaCacheValue = stringRedisTemplate.opsForValue().get(RSA_CACHE_KEY + keyId);
         PmnxRsaBo pmnxRsaBo = Jackson.parseObject(rsaCacheValue, PmnxRsaBo.class);
-        return new RSA(pmnxRsaBo.getPublicKey(), pmnxRsaBo.getPrivateKey());
+        return new RSA(pmnxRsaBo.getPrivateKey(), pmnxRsaBo.getPublicKey());
     }
 }

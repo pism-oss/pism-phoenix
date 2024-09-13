@@ -1,6 +1,5 @@
 package cn.com.pism.phoenix.core.service;
 
-import cn.com.pism.phoenix.models.bo.cas.PmnxRsaBo;
 import cn.hutool.crypto.asymmetric.RSA;
 
 /**
@@ -15,10 +14,23 @@ public interface PmnxRsaService {
      * by perccyking
      *
      * @param keyId : 密钥id
-     * @return {@link PmnxRsaBo} rsa
+     * @return {@link RSA} rsa
      * @since 24-09-13 00:24
      */
-    PmnxRsaBo getOrCreateRsaBo(String keyId);
+    RSA getOrCreateRsaBo(String keyId);
+
+    /**
+     * <p>
+     * 获取或创建rsa
+     * </p>
+     * by perccyking
+     *
+     * @param keyId  : 密钥id
+     * @param expire : 过期时间，单位s
+     * @return {@link RSA} rsa
+     * @since 24-09-13 12:53
+     */
+    RSA getOrCreateRsaBo(String keyId, long expire);
 
     /**
      * <p>

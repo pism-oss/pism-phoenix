@@ -1,5 +1,6 @@
 package cn.com.pism.phoenix.core.config;
 
+import cn.com.pism.phoenix.annotations.env.EnvEnum;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -13,6 +14,11 @@ import java.util.List;
 @ConfigurationProperties(prefix = "spring.pmnx")
 @Data
 public class PmnxProperties {
+
+    /**
+     * 运行环境
+     */
+    private EnvEnum env = EnvEnum.PROD;
 
     /**
      * 缓存key前缀

@@ -1,4 +1,4 @@
-package cn.com.pism.phoenix.core.config;
+package cn.com.pism.phoenix.models.exception;
 
 import cn.com.pism.exception.ErrorCode;
 import lombok.AllArgsConstructor;

@@ -32,4 +32,17 @@ public interface PmnxCasService {
      * @since 24-09-12 15:56
      */
     String getPublicKey(String keyId);
+
+    /**
+     * <p>
+     * 使用公钥加密文本
+     * </p>
+     * by perccyking
+     *
+     * @param text  : 文本
+     * @param keyId : 密钥id
+     * @return {@link String}
+     * @since 24-09-13 12:36
+     */
+    String rsaEncryptPublic(String text, String keyId);
 }
