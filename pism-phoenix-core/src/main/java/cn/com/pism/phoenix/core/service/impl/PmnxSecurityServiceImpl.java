@@ -1,9 +1,11 @@
 package cn.com.pism.phoenix.core.service.impl;
 
 import cn.com.pism.phoenix.annotations.cache.PmnxLocalCache;
+import cn.com.pism.phoenix.core.entity.PmnxUserRole;
 import cn.com.pism.phoenix.core.service.PmnxResourceService;
 import cn.com.pism.phoenix.core.service.PmnxRoleResourceService;
 import cn.com.pism.phoenix.core.service.PmnxSecurityService;
+import cn.com.pism.phoenix.core.service.PmnxUserRoleService;
 import cn.com.pism.phoenix.models.bo.security.PmnxSecurityResourceCodeBo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,8 @@ public class PmnxSecurityServiceImpl implements PmnxSecurityService {
 
     private final PmnxRoleResourceService pmnxRoleResourceService;
 
+    private final PmnxUserRoleService pmnxUserRoleService;
+
     @Override
     public List<String> getRolePermission(String roleId) {
         try {
@@ -38,7 +42,15 @@ public class PmnxSecurityServiceImpl implements PmnxSecurityService {
 
     @Override
     public List<String> getUserRole(Long userId) {
-        return List.of();
+        return pmnxUserRoleService
+                .lambdaQuery()
+                .eq(PmnxUserRole::getUserId, userId)
+                .select(PmnxUserRole::getRoleId)
+                .list()
+                .stream()
+                .map(item -> String.valueOf(item.getRoleId()))
+                .distinct()
+                .toList();
     }
 
     @Override
