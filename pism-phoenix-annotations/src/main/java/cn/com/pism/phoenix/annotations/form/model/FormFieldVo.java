@@ -50,7 +50,7 @@ public class FormFieldVo {
      * 值
      */
     @Schema(description = "值")
-    private String value;
+    private Object value;
 
     /**
      * 字段验证

@@ -53,3 +53,20 @@ CREATE TABLE pmnx_user_attr_value
     update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     dlt         BIT       DEFAULT b'0'              NULL COMMENT '逻辑删除标志位'
 ) COMMENT '用户属性值';
+
+-- TABLE(pmnx_form)
+CREATE TABLE pmnx_form
+(
+    id          BIGINT                              NOT NULL COMMENT '主键id'
+        PRIMARY KEY,
+    form_id     VARCHAR(1024)                       NULL COMMENT '表单id',
+    field_id    VARCHAR(1024)                       NULL COMMENT '字段id',
+    field_value TEXT                                NULL COMMENT '字段值',
+    create_by   BIGINT                              NULL COMMENT '创建人id',
+    update_by   BIGINT                              NULL COMMENT '更新人id',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL COMMENT '创建时间',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    dlt         BIT       DEFAULT b'0'              NULL COMMENT '逻辑删除标志位'
+)
+    COMMENT '表单数据' ENGINE = InnoDB;
+

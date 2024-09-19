@@ -2,6 +2,7 @@ package cn.com.pism.phoenix.core.config;
 
 import cn.com.pism.exception.PismException;
 import cn.com.pism.phoenix.models.JsonResult;
+import cn.com.pism.phoenix.models.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,12 @@ public class GlobExceptionHandler {
             return JsonResult.failed(e.getLocalizedMessage());
         }
         return JsonResult.failed(defaultMessage);
+    }
+
+    @ExceptionHandler(BizException.class)
+    public JsonResult<Object> bizException(BizException e) {
+        log.error(e.getMessage(), e);
+        return JsonResult.failed(e.getMessage());
     }
 
     @ExceptionHandler(PismException.class)

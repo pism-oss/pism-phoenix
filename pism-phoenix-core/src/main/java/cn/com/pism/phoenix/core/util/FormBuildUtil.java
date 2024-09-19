@@ -6,12 +6,13 @@ import cn.com.pism.phoenix.utils.CollectionExUtil;
 import cn.com.pism.phoenix.utils.ObjectExUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -33,10 +34,11 @@ public class FormBuildUtil {
     public FormVo build(Object object) {
         Class<?> objClass = object.getClass();
         FormVo formVo = new FormVo();
+        formVo.setId(objClass.getName());
         //获取对象上的注解
         Form form = AnnotationUtils.findAnnotation(objClass, Form.class);
         if (form != null) {
-            formVo.setLabel(form.label());
+            formVo.setLabel(form.name());
             formVo.setOrder(form.order());
             //字段
             for (Field field : objClass.getDeclaredFields()) {
@@ -59,14 +61,18 @@ public class FormBuildUtil {
 
     private FormFieldVo buildFormFieldVo(FormField formField, Object object, Field field) {
         FormFieldVo formFieldVo = new FormFieldVo();
-        formFieldVo.setKey(formField.key());
+        ObjectExUtil.isNotBlank(formField.key(), formFieldVo::setKey, () -> formFieldVo.setKey(field.getName()));
         formFieldVo.setLabel(formField.label());
         formFieldVo.setType(formField.type());
         //使用key 填充value
-        String property = null;
+        Object property = null;
         try {
-            property = BeanUtils.getProperty(object, field.getName());
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            PropertyDescriptor propertyDescriptor = BeanUtils.getPropertyDescriptor(object.getClass(), field.getName());
+            if (propertyDescriptor != null) {
+                //需要做属性适配
+                property = propertyDescriptor.getReadMethod().invoke(object);
+            }
+        } catch (InvocationTargetException | IllegalAccessException e) {
             log.warn("Error in getting attribute values and sending when building form field objects", e);
         }
         formFieldVo.setValue(property);

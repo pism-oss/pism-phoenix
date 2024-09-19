@@ -1,6 +1,8 @@
 package cn.com.pism.phoenix.demo;
 
+import cn.com.pism.phoenix.annotations.form.FormRefresh;
 import cn.com.pism.phoenix.core.service.PmnxSecurityService;
+import cn.com.pism.phoenix.demo.config.UserConfig;
 import cn.com.pism.phoenix.utils.Jackson;
 import cn.dev33.satoken.annotation.SaIgnore;
 import jakarta.annotation.Resource;
@@ -29,14 +31,17 @@ public class TestController {
 
     private final RedissonClient redissonClient;
 
+    private final UserConfig userConfig;
+
     @Resource
     private PmnxSecurityService pmnxSecurityService;
 
 
     @GetMapping("test")
     @SaIgnore
+    @FormRefresh
     public String test(HttpServletRequest request) {
-        return Jackson.toJsonString(pmnxSecurityService.getBlacklist());
+        return Jackson.toJsonString(userConfig);
 
 //        stringRedisTemplate.opsForValue().set("13","13");
 //        String s = stringRedisTemplate.opsForValue().get("13");

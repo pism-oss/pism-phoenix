@@ -6,8 +6,8 @@ import cn.com.pism.phoenix.models.config.SystemConfig;
  * @author perccyking
  * @since 24-09-12 16:34
  */
-public class PmnxCasConstant {
-    private PmnxCasConstant() {
+public class PmnxCasConstants {
+    private PmnxCasConstants() {
     }
 
     private static final String PREFIX = "pmnx:cas:";

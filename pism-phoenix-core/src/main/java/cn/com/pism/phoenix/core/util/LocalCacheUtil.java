@@ -83,13 +83,7 @@ public class LocalCacheUtil {
         //添加异步更新任务
         LocalCacheHelper.submitAction(() -> {
 
-            //获取缓存版本号，如果两个版本号一致，不做任何操作
-            String version = LocalCacheHelper.getValue(key, VERSION);
-
-            //同步版本号
-            String syncVersion = stringRedisTemplate.opsForValue().get(key);
-            if ((!StringUtils.isAnyEmpty(version, syncVersion)) && StringUtils.compare(version, syncVersion) != 0) {
-
+            if (!isSameVersion(key)) {
                 //版本号不一致，更新本地缓存数据
                 LocalCacheHelper.setCache(key, key, Jackson.toJsonStringNonNull(getSupplier.get()));
             }
@@ -127,6 +121,19 @@ public class LocalCacheUtil {
             LocalCacheHelper.setCache(key, VERSION, String.valueOf(stringRedisTemplate.opsForValue().increment(key)));
         }
         return cacheValue;
+    }
+
+    public boolean isSameVersion(String key) {
+        //获取缓存版本号，如果两个版本号一致，不做任何操作
+        String version = LocalCacheHelper.getValue(key, VERSION);
+        //同步版本号
+        String syncVersion = stringRedisTemplate.opsForValue().get(key);
+
+        //两个版本都不为空，并且两个版本号都相同
+        if (StringUtils.isNotBlank(version) && StringUtils.isNotBlank(syncVersion)) {
+            return StringUtils.compare(version, syncVersion) == 0;
+        }
+        return false;
     }
 
 }

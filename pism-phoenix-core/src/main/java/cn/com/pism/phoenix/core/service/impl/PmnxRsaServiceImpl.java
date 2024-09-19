@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
-import static cn.com.pism.phoenix.models.constant.PmnxCasConstant.RSA_CACHE_KEY;
+import static cn.com.pism.phoenix.models.constant.PmnxCasConstants.RSA_CACHE_KEY;
 
 /**
  * @author perccyking

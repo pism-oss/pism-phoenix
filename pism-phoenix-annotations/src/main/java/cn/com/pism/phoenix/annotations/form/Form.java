@@ -1,6 +1,5 @@
 package cn.com.pism.phoenix.annotations.form;
 
-import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;
@@ -17,16 +16,13 @@ import java.lang.annotation.*;
 @Component
 public @interface Form {
 
-    @AliasFor("label")
-    String value() default "";
 
     /**
-     * label
+     * name
      *
-     * @return label
+     * @return name
      */
-    @AliasFor("value")
-    String label() default "";
+    String name() default "";
 
     /**
      * 表单排序

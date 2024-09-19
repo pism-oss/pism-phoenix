@@ -22,6 +22,12 @@ import java.util.List;
 public class FormVo {
 
     /**
+     * 表单id
+     */
+    @Schema(description = "表单id")
+    private String id;
+
+    /**
      * 表单名称
      */
     @Schema(description = "表单名称")
