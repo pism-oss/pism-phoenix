@@ -8,7 +8,6 @@ import cn.com.pism.phoenix.utils.Jackson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,8 +27,6 @@ import java.util.stream.Collectors;
 public class PmnxFormTxa {
 
     private final PmnxFormService pmnxFormService;
-
-    private final StringRedisTemplate stringRedisTemplate;
 
     /**
      * <p>

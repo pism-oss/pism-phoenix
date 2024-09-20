@@ -23,5 +23,5 @@ public class PmnxFormSaveValueReqVo {
      * 字段值
      */
     @Schema(description = "字段值")
-    List<PmnxFormSaveFieldValueReqVo> fieldValues;
+    private List<PmnxFormSaveFieldValueReqVo> fieldValues;
 }
