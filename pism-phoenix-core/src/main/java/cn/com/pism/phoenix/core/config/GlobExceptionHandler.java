@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Objects;
 
+import static cn.com.pism.exception.DefaultErrorCode.SYSTEM_ERROR;
+
 /**
  * @author perccyking
  * @since 24-09-12 18:39
@@ -47,5 +49,11 @@ public class GlobExceptionHandler {
             log.error(e.getMessage(), e);
             return JsonResult.failed(e.getMessage());
         }
+    }
+
+    @ExceptionHandler(Exception.class)
+    public JsonResult<Object> exception(Exception e) {
+        log.error(e.getMessage(), e);
+        return JsonResult.failed(SYSTEM_ERROR);
     }
 }
