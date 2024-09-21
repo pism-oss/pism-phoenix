@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="pp"
+                 name="pism phoenix"
+                 start-page="home.topic">
+
+    <toc-element topic="home.topic">
+        <toc-element topic="简介.md"/>
+        <toc-element topic="快速开始.md"/>
+        <toc-element topic="Mybatis方法注入.md"/>
+        <toc-element topic="表单配置.md"/>
+        <toc-element topic="SpringDoc增强.md"/>
+        <toc-element topic="本地缓存.md"/>
+    </toc-element>
+</instance-profile>
