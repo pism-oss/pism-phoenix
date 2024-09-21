@@ -11,7 +11,7 @@ permissions:
 
 env:
   INSTANCE: 'Writerside/pp'
-  ARTIFACT: 'pism-phoenix-docs.zip'
+  ARTIFACT: 'webHelpPP2-all.zip'
   DOCKER_VERSION: '242.21870'
 
 jobs:
