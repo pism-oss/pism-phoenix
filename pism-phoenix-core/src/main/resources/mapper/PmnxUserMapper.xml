@@ -10,8 +10,8 @@
         <result column="enabled" jdbcType="BIT" property="enabled"/>
         <result column="create_by" jdbcType="BIGINT" property="createBy"/>
         <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
         <result column="dlt" jdbcType="BIT" property="dlt"/>
     </resultMap>
     <sql id="Base_Column_List">
@@ -39,9 +39,9 @@
         WHERE dlt = 0
         <if test="param.keyWord != null and param.keyWord != ''">
             AND (
-                instr(email, #{param.keyWord})
+                INSTR(email, #{param.keyWord})
                     OR
-                instr(account, #{param.keyWord})
+                INSTR(account, #{param.keyWord})
                 )
         </if>
     </select>
