@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
 /**
  * @author perccyking
  * @since 24-08-25 01:59
@@ -22,15 +20,15 @@ public class MybatisFillAspect extends EntityFillAspect {
         if (o instanceof ComEntity comEntity) {
 
             //当前系统时间
-            Date currentDate = new Date();
+            long currentTime = System.currentTimeMillis();
 
             //更新时间
-            comEntity.setUpdateTime(currentDate);
+            comEntity.setUpdateTime(currentTime);
 
             try {
                 //实体主键id为空，并且没有设置创建时间，对创建时间补充，注：实体更新的时候，有主键id可能没有创建时间
                 if (comEntity.getId() == null && comEntity.getCreateTime() == null) {
-                    comEntity.setCreateTime(currentDate);
+                    comEntity.setCreateTime(currentTime);
                 }
             } catch (Exception e) {
                 log.error(e.getMessage());

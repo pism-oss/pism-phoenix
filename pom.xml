@@ -125,6 +125,13 @@
             </dependency>
 
             <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>3.5.7</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>cn.com.pism</groupId>
                 <artifactId>pism-exception</artifactId>
                 <version>1.0.2</version>

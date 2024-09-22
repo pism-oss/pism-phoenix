@@ -32,4 +32,17 @@
         FROM pmnx_user
         WHERE account = #{account}
     </select>
+
+    <select id="page" resultType="cn.com.pism.phoenix.models.vo.user.resp.PmnxUserPageRespVo">
+        SELECT id, account, email, enabled, create_time
+        FROM pmnx_user
+        WHERE dlt = 0
+        <if test="param.keyWord != null and param.keyWord != ''">
+            AND (
+                instr(email, #{param.keyWord})
+                    OR
+                instr(account, #{param.keyWord})
+                )
+        </if>
+    </select>
 </mapper>

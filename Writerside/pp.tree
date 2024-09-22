@@ -13,5 +13,6 @@
         <toc-element topic="表单配置.md"/>
         <toc-element topic="SpringDoc增强.md"/>
         <toc-element topic="本地缓存.md"/>
+        <toc-element topic="api分类.md"/>
     </toc-element>
 </instance-profile>

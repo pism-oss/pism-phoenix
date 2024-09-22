@@ -32,7 +32,7 @@ import java.util.concurrent.CompletableFuture;
  */
 @RestController
 @RequestMapping("/sys/form")
-@Tag(name = "表单")
+@Tag(name = "表单管理")
 @ApiSupport
 @RequiredArgsConstructor
 @Log4j2

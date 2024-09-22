@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * 实体父类，所有实体都应继承这个类
  *
@@ -39,13 +37,13 @@ public class ComEntity {
      * 创建时间
      */
     @TableField(value = "create_time")
-    private Date createTime;
+    private Long createTime;
 
     /**
      * 更新时间
      */
     @TableField(value = "update_time")
-    private Date updateTime;
+    private Long updateTime;
 
     /**
      * 逻辑删除标志位，1代表删除，0代表未删除
