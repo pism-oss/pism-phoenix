@@ -18,8 +18,7 @@
 
     <properties>
         <revision>0.0.1</revision>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -29,7 +28,23 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.3.0</version>
+                <version>4.0.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.com.pism</groupId>
+                <artifactId>pism-mybatis-plus</artifactId>
+                <version>1.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.com.pism</groupId>
+                <artifactId>ezasse</artifactId>
+                <version>1.0.0-re</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -59,9 +74,9 @@
             </dependency>
 
             <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.32</version>
+                <groupId>cn.com.pism</groupId>
+                <artifactId>pism-phoenix-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
@@ -73,7 +88,7 @@
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.9.4</version>
+                <version>1.11.0</version>
             </dependency>
 
             <dependency>
@@ -103,32 +118,31 @@
             <dependency>
                 <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-annotations-jakarta</artifactId>
-                <version>2.2.21</version>
+                <version>2.2.42</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-                <version>4.5.0</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.github.xiaoymin</groupId>-->
+<!--                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>-->
+<!--                <version>4.5.0</version>-->
+<!--            </dependency>-->
 
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-                <version>3.5.7</version>
+                <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
+                <version>3.5.15</version>
             </dependency>
 
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
-                <version>3.5.7</version>
+                <version>3.5.15</version>
             </dependency>
 
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-extension</artifactId>
-                <version>3.5.7</version>
-                <scope>provided</scope>
+                <version>3.5.15</version>
             </dependency>
 
             <dependency>
@@ -149,9 +163,15 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <release>${java.version}</release>
                     <encoding>utf-8</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.42</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
 

@@ -9,7 +9,6 @@ import cn.com.pism.phoenix.models.vo.cas.req.PmnxCasPasswordLoginReqVo;
 import cn.com.pism.phoenix.models.vo.cas.resp.PmnxCasLoginRespVo;
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
-import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/open/cas")
 @Tag(name = "认证中心")
-@ApiSupport
 @RequiredArgsConstructor
 @Log4j2
 public class PmnxCasController {

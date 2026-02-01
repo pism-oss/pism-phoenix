@@ -22,7 +22,7 @@ public enum EnvEnum {
     TEST("test"),
 
     /**
-     * 预发布黄金
+     * 预发布环境
      */
     PRE("pre"),
 
@@ -30,6 +30,7 @@ public enum EnvEnum {
      * 生产环境
      */
     PROD("prod");
+
     private final String value;
 
 }

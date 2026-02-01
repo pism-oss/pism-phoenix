@@ -6,7 +6,7 @@ CREATE TABLE table_demo
     update_by   BIGINT                              NULL COMMENT '更新人id',
     create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL COMMENT '创建时间',
     update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    dlt         BIT       DEFAULT b'0'              NULL COMMENT '逻辑删除标志位'
+    dlt         tinyint       DEFAULT b'0'              NULL COMMENT '逻辑删除标志位'
 ) COMMENT 'table demo';
 
 -- TABLE(pmnx_user)

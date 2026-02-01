@@ -1,6 +1,6 @@
 package cn.com.pism.phoenix.core.controller;
 
-import com.github.xiaoymin.knife4j.annotations.ApiSupport;
+//import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/client/account")
 @Tag(name = "账号")
-@ApiSupport
+//@ApiSupport
 @RequiredArgsConstructor
 @Log4j2
 public class PmnxAccountController {

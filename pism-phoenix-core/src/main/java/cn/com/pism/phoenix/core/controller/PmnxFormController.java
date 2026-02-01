@@ -7,7 +7,6 @@ import cn.com.pism.phoenix.core.util.FormBuildUtil;
 import cn.com.pism.phoenix.core.util.SpringUtil;
 import cn.com.pism.phoenix.models.exception.BizException;
 import cn.com.pism.phoenix.models.vo.form.req.PmnxFormSaveValueReqVo;
-import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,7 +32,6 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequestMapping("/sys/form")
 @Tag(name = "表单管理")
-@ApiSupport
 @RequiredArgsConstructor
 @Log4j2
 public class PmnxFormController {

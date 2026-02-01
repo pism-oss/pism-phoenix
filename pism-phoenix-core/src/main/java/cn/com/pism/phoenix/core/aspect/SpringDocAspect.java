@@ -1,6 +1,5 @@
 package cn.com.pism.phoenix.core.aspect;
 
-import com.github.xiaoymin.knife4j.core.conf.ExtensionsConstants;
 import io.swagger.v3.core.util.Json;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
@@ -26,6 +25,8 @@ import java.util.*;
 @Aspect
 @Component
 public class SpringDocAspect {
+
+    private static final String ORDER = "x-order";
 
 
     @Pointcut("execution(public * org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource.openapiJson(..))")
@@ -58,7 +59,7 @@ public class SpringDocAspect {
         Map<String, Object> extensions = operation.getExtensions();
         int serial = 0;
         if (MapUtils.isNotEmpty(extensions)) {
-            serial = (int) extensions.getOrDefault(ExtensionsConstants.EXTENSION_ORDER, Integer.MAX_VALUE);
+            serial = (int) extensions.getOrDefault(ORDER, Integer.MAX_VALUE);
             if (Integer.MAX_VALUE == serial || Integer.MIN_VALUE == serial) {
                 serial = getSerial(operation, serial, groupPathSerial, extensions);
             }
@@ -78,7 +79,7 @@ public class SpringDocAspect {
             String tag = tags.getFirst();
             serial = groupPathSerial.getOrDefault(tag, 0);
             groupPathSerial.put(tag, serial + 1);
-            newExtensions.put(ExtensionsConstants.EXTENSION_ORDER, serial);
+            newExtensions.put(ORDER, serial);
         }
         return serial;
     }
