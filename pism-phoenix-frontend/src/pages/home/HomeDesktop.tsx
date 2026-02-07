@@ -35,16 +35,6 @@ export default function HomeDesktop() {
     const entries: Entry[] = [
         { id: "user-mgmt", title: "用户管理", description: "管理系统用户信息及状态", icon: Users, color: "text-blue-600", bg: "bg-blue-50" },
         { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
-        { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
-        { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
-        { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
-        { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
-        { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
-        { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
-        { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
-        { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
-        { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
-        { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
         { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
         { id: "logs", title: "日志审计", description: "查看系统运行及操作日志", icon: History, color: "text-purple-600", bg: "bg-purple-50" }
     ];
