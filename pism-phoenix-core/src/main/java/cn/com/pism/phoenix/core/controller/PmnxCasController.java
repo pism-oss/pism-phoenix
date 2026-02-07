@@ -32,7 +32,7 @@ public class PmnxCasController {
     @Operation(summary = "获取公钥")
     @GetMapping("/public/{keyId}/key")
     @SaIgnore
-    public String getPublicKey(@Parameter(description = "密钥id") @PathVariable("keyId") String keyId) {
+    public String getPublicKey(@PathVariable @Parameter(description = "密钥id") String keyId) {
         return pmnxCasService.getPublicKey(keyId);
     }
 

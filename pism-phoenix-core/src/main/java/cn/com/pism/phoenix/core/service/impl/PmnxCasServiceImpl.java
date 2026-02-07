@@ -44,7 +44,7 @@ public class PmnxCasServiceImpl implements PmnxCasService {
         RSA rsa = pmnxRsaService.getRsaByKeyId(reqVo.getKeyId());
 
         String decryptAccount = rsa.decryptStr(reqVo.getAccount(), KeyType.PrivateKey);
-        String decryptPassword = rsa.decryptStr(reqVo.getPassword(), KeyType.PublicKey);
+        String decryptPassword = rsa.decryptStr(reqVo.getPassword(), KeyType.PrivateKey);
         //通过账号获取密码
         String password = pmnxUserService.getPasswordByAccount(decryptAccount);
         if (!BCrypt.checkpw(decryptPassword, password)) {

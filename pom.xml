@@ -172,6 +172,7 @@
                             <version>1.18.42</version>
                         </path>
                     </annotationProcessorPaths>
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
 
