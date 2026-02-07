@@ -21,15 +21,15 @@ export default function Login() {
         if (!account || !password) {
             toast({
                 variant: "destructive",
-                title: "Error",
-                description: "Please enter both account and password.",
+                title: "错误",
+                description: "请输入账号和密码。",
             });
             return;
         }
 
         setIsLoading(true);
         try {
-            // Generate a unique keyId for this login session
+            // 为本次登录请求生成唯一的 keyId
             const keyId = crypto.randomUUID();
 
             const publicKey = await getPublicKey(keyId);
@@ -37,30 +37,31 @@ export default function Login() {
             const encryptedAccount = encryptText(account, publicKey);
             const encryptedPassword = encryptText(password, publicKey);
 
-            const response = await api.post<LoginResponse>("/open/cas/login", {
+            await api.post<LoginResponse>("/open/cas/login", {
                 account: encryptedAccount,
                 password: encryptedPassword,
                 keyId: keyId,
+            }).then((response) => {
+                const { token, account: userAccount, email } = response.data;
+
+                localStorage.setItem("pism_token", token.token);
+                localStorage.setItem("pism_token_name", token.tokenName);
+                localStorage.setItem("pism_user", JSON.stringify({ account: userAccount, email }));
+
+                toast({
+                    title: "成功",
+                    description: "登录成功。",
+                });
+
+                navigate("/");
             });
 
-            const { token, account: userAccount, email } = response.data;
-
-            localStorage.setItem("pism_token", token.token);
-            localStorage.setItem("pism_token_name", token.tokenName);
-            localStorage.setItem("pism_user", JSON.stringify({ account: userAccount, email }));
-
-            toast({
-                title: "Success",
-                description: "Logged in successfully.",
-            });
-
-            navigate("/");
         } catch (error: any) {
             console.error("Login failed:", error);
             toast({
                 variant: "destructive",
-                title: "Login Failed",
-                description: error.message || error.response?.data?.msg || "Invalid account or password.",
+                title: "登录失败",
+                description: error.message || error.response?.data?.msg || "账号或密码错误。",
             });
         } finally {
             setIsLoading(false);
@@ -69,7 +70,6 @@ export default function Login() {
 
     return (
         <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 p-4">
-            {/* iPad-optimized container: max-width for larger screens, centered */}
             <Card className="w-full max-w-[500px] shadow-xl border-slate-200">
                 <CardHeader className="space-y-1 flex flex-col items-center">
                     <div className="p-3 bg-primary/10 rounded-full mb-2">
@@ -77,7 +77,7 @@ export default function Login() {
                     </div>
                     <CardTitle className="text-3xl font-bold tracking-tight">Pism Phoenix</CardTitle>
                     <CardDescription className="text-slate-500 text-lg">
-                        Backend Management System
+                        后台管理系统
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -87,7 +87,7 @@ export default function Login() {
                                 <User className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
                                 <Input
                                     type="text"
-                                    placeholder="Account"
+                                    placeholder="账号"
                                     className="pl-10 h-12 text-lg"
                                     value={account}
                                     onChange={(e) => setAccount(e.target.value)}
@@ -98,7 +98,7 @@ export default function Login() {
                                 <Lock className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
                                 <Input
                                     type="password"
-                                    placeholder="Password"
+                                    placeholder="密码"
                                     className="pl-10 h-12 text-lg"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
@@ -111,13 +111,13 @@ export default function Login() {
                             className="w-full h-12 text-lg font-semibold transition-all hover:scale-[1.01]"
                             disabled={isLoading}
                         >
-                            {isLoading ? "Signing in..." : "Login"}
+                            {isLoading ? "登录中..." : "登录"}
                         </Button>
                     </form>
                 </CardContent>
                 <CardFooter className="flex flex-col space-y-4 pt-0">
                     <div className="text-sm text-slate-400 text-center">
-                        Pism Phoenix Management Platform © 2026
+                        Pism Phoenix 管理平台 © 2026
                     </div>
                 </CardFooter>
             </Card>

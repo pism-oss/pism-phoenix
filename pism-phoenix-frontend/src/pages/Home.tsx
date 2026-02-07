@@ -1,192 +1,211 @@
 import { useState, useEffect } from "react";
 import {
-    LayoutDashboard,
     Users,
-    Settings,
+    ShieldCheck,
+    BookOpen,
+    History,
     LogOut,
-    Menu,
-    Bell,
-    Search,
-    ChevronRight
+    LayoutGrid
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardTitle, CardDescription } from "@/components/ui/card";
 import { logout } from "@/lib/auth";
+import { Button } from "@/components/ui/button";
+
+interface Entry {
+    id: string;
+    title: string;
+    description: string;
+    icon: any;
+    color: string;
+    bg: string;
+}
 
 export default function Home() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [user, setUser] = useState<{ account: string; email: string } | null>(null);
+    const [activeEntryId, setActiveEntryId] = useState<string | null>(null);
 
     useEffect(() => {
         const storedUser = localStorage.getItem("pism_user");
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
-
-        // Auto-hide sidebar on smaller iPad portrait if needed, but for now keep it responsive
-        const handleResize = () => {
-            if (window.innerWidth < 1024) {
-                setIsSidebarOpen(false);
-            } else {
-                setIsSidebarOpen(true);
-            }
-        };
-
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const menuItems = [
-        { icon: LayoutDashboard, label: "Dashboard", active: true },
-        { icon: Users, label: "User Management", active: false },
-        { icon: Settings, label: "System Settings", active: false },
+    const entries: Entry[] = [
+        {
+            id: "user-mgmt",
+            title: "用户管理",
+            description: "管理系统用户信息及状态",
+            icon: Users,
+            color: "text-blue-600",
+            bg: "bg-blue-50"
+        },
+        {
+            id: "perms",
+            title: "权限配置",
+            description: "设置系统角色及功能权限",
+            icon: ShieldCheck,
+            color: "text-green-600",
+            bg: "bg-green-50"
+        },
+        {
+            id: "dict",
+            title: "数据字典",
+            description: "维护系统通用数据及常量",
+            icon: BookOpen,
+            color: "text-orange-600",
+            bg: "bg-orange-50"
+        },
+        {
+            id: "logs",
+            title: "日志审计",
+            description: "查看系统运行及操作日志",
+            icon: History,
+            color: "text-purple-600",
+            bg: "bg-purple-50"
+        }
     ];
 
-    return (
-        <div className="min-h-screen bg-slate-50 flex overflow-hidden">
-            {/* Sidebar - iPad style */}
-            <aside
-                className={`bg-white border-r border-slate-200 transition-all duration-300 ease-in-out z-20 ${isSidebarOpen ? "w-72" : "w-0 -translate-x-full lg:w-20 lg:translate-x-0"
-                    } flex flex-col`}
-            >
-                <div className="h-20 flex items-center px-6 border-b border-slate-100">
-                    <div className="bg-primary h-10 w-10 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/20">
-                        <span className="font-bold text-xl">P</span>
-                    </div>
-                    {isSidebarOpen && <span className="ml-3 font-bold text-xl text-slate-800 tracking-tight">Phoenix</span>}
-                </div>
+    const activeEntry = entries.find(e => e.id === activeEntryId);
 
-                <nav className="flex-1 py-8 px-4 space-y-2">
-                    {menuItems.map((item, index) => (
-                        <button
-                            key={index}
-                            className={`w-full flex items-center px-4 py-4 rounded-2xl transition-all duration-200 ${item.active
-                                ? "bg-primary text-white shadow-md shadow-primary/20 lg:justify-center"
-                                : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
-                                } ${!isSidebarOpen && "lg:justify-center"}`}
-                        >
-                            <item.icon className={`h-6 w-6 ${item.active ? "" : "text-slate-400"}`} />
-                            {isSidebarOpen && <span className="ml-4 font-medium text-lg">{item.label}</span>}
-                        </button>
-                    ))}
-                </nav>
-
-                <div className="p-4 border-t border-slate-100">
-                    <Button
-                        variant="ghost"
-                        className={`w-full h-14 rounded-2xl text-slate-500 hover:text-red-600 hover:bg-red-50 flex items-center ${!isSidebarOpen && "lg:justify-center"
-                            }`}
-                        onClick={logout}
-                    >
-                        <LogOut className="h-6 w-6" />
-                        {isSidebarOpen && <span className="ml-4 font-medium text-lg">Logout</span>}
-                    </Button>
-                </div>
-            </aside>
-
-            {/* Main Content Area */}
-            <main className="flex-1 flex flex-col relative overflow-y-auto">
-                {/* Header */}
-                <header className="h-20 bg-white/80 backdrop-blur-md border-b border-slate-100 flex items-center justify-between px-8 sticky top-0 z-10">
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                            className="p-2 h-12 w-12 rounded-2xl bg-slate-50 text-slate-600 hover:bg-slate-100 transition-colors lg:hidden"
-                        >
-                            <Menu className="h-7 w-7" />
-                        </button>
-                        <div className="hidden md:flex relative">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-                            <input
-                                type="text"
-                                placeholder="Quick search..."
-                                className="bg-slate-50 border-none rounded-2xl pl-10 pr-4 h-12 w-64 text-slate-600 focus:ring-2 focus:ring-primary/20 outline-none"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-6">
-                        <button className="relative p-2 h-12 w-12 rounded-2xl hover:bg-slate-50 text-slate-400 transition-colors">
-                            <Bell className="h-6 w-6" />
-                            <span className="absolute top-3 right-3 h-2.5 w-2.5 bg-red-500 rounded-full border-2 border-white"></span>
-                        </button>
-                        <div className="flex items-center gap-3 pl-2 border-l border-slate-100">
-                            <div className="text-right hidden sm:block font-medium">
-                                <div className="text-slate-900 leading-tight">{user?.account || "Admin"}</div>
-                                <div className="text-slate-400 text-sm">{user?.email || "admin@pism.com"}</div>
-                            </div>
-                            <div className="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold text-xl ring-4 ring-slate-50 shadow-inner">
+    // Dashboard View Component
+    const DashboardView = () => (
+        <div className="p-10 space-y-10 w-full animate-in fade-in zoom-in-95 duration-500">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 w-full">
+                {/* User Info Card (First Card) */}
+                <Card className="border-none shadow-md bg-white rounded-[32px] overflow-hidden flex flex-col justify-between p-8 min-h-[300px]">
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-4">
+                            <div className="h-16 w-16 rounded-3xl bg-primary/10 text-primary flex items-center justify-center font-bold text-3xl ring-4 ring-slate-50 shadow-inner">
                                 {user?.account?.charAt(0).toUpperCase() || "A"}
                             </div>
+                            <div>
+                                <h3 className="text-2xl font-black text-slate-800 tracking-tight">{user?.account || "管理员"}</h3>
+                                <p className="text-slate-400 font-medium">{user?.email || "admin@pism.com"}</p>
+                            </div>
+                        </div>
+                        <div className="pt-2">
+                            <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-600 text-sm font-bold">
+                                <span className="h-2 w-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                                在线
+                            </div>
                         </div>
                     </div>
-                </header>
+                    <Button
+                        variant="ghost"
+                        className="w-full h-14 rounded-2xl text-slate-400 hover:text-red-600 hover:bg-red-50 text-lg font-bold mt-auto border border-dashed border-slate-200"
+                        onClick={logout}
+                    >
+                        <LogOut className="h-6 w-6 mr-3" />
+                        退出登录
+                    </Button>
+                </Card>
 
-                {/* Content */}
-                <div className="p-10 space-y-10">
-                    <div className="flex items-end justify-between">
-                        <div className="space-y-2">
-                            <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">Overview</h1>
-                            <p className="text-slate-500 text-xl font-medium">Welcome back to Pism Phoenix Management.</p>
+                {/* Functional Entries */}
+                {entries.map((entry) => (
+                    <Card
+                        key={entry.id}
+                        className="border-none shadow-md hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer group rounded-[32px] overflow-hidden flex flex-col p-8 bg-white"
+                        onClick={() => setActiveEntryId(entry.id)}
+                    >
+                        <div className={`${entry.bg} ${entry.color} p-5 w-20 h-20 rounded-3xl mb-8 flex items-center justify-center transition-transform group-hover:rotate-6 duration-300 shadow-sm`}>
+                            <entry.icon className="w-10 h-10" />
                         </div>
-                        <Button size="lg" className="h-14 px-8 rounded-2xl shadow-lg shadow-primary/20 text-lg font-bold">
-                            Generate Report
-                        </Button>
+                        <CardTitle className="text-2xl font-black text-slate-800 tracking-tight mb-2">{entry.title}</CardTitle>
+                        <CardDescription className="text-slate-400 text-lg font-medium leading-snug">{entry.description}</CardDescription>
+
+                        <div className="mt-auto pt-8">
+                            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                                <div className={`h-full w-0 group-hover:w-full transition-all duration-700 ease-out ${entry.bg.replace('bg-', 'bg-').replace('-50', '-200')} opacity-50`}></div>
+                            </div>
+                        </div>
+                    </Card>
+                ))}
+            </div>
+        </div>
+    );
+
+    // Tabbed View Component
+    const TabbedView = () => (
+        <div className="flex flex-col h-screen overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+            {/* Tab Bar Replacement for Header */}
+            <div className="h-20 bg-white border-b border-slate-200 flex items-center px-6 gap-2 sticky top-0 z-20 overflow-x-auto no-scrollbar shadow-sm">
+                {/* User / Logout Tab (Fixed Left, Non-content) */}
+                <div className="flex items-center bg-slate-50 p-2 pr-4 rounded-[20px] gap-3 mr-4 border border-slate-100">
+                    <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold text-lg ring-2 ring-white">
+                        {user?.account?.charAt(0).toUpperCase() || "A"}
+                    </div>
+                    <div className="hidden sm:block">
+                        <div className="text-sm font-black text-slate-800 leading-tight">{user?.account || "Admin"}</div>
+                    </div>
+                    <button
+                        onClick={logout}
+                        className="ml-2 p-2 rounded-xl text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                        title="退出登录"
+                    >
+                        <LogOut className="h-5 w-5" />
+                    </button>
+                </div>
+
+                <div className="h-10 w-[1px] bg-slate-200 mx-2"></div>
+
+                {/* Functional Tabs */}
+                <div className="flex items-center gap-2">
+                    {entries.map(entry => (
+                        <button
+                            key={entry.id}
+                            onClick={() => setActiveEntryId(entry.id)}
+                            className={`flex items-center px-6 py-3 rounded-[20px] transition-all duration-300 font-bold text-base whitespace-nowrap ${activeEntryId === entry.id
+                                ? "bg-primary text-white shadow-lg shadow-primary/20 scale-105"
+                                : "text-slate-500 hover:bg-slate-100"
+                                }`}
+                        >
+                            <entry.icon className={`h-5 w-5 mr-3 ${activeEntryId === entry.id ? 'text-white' : entry.color}`} />
+                            {entry.title}
+                        </button>
+                    ))}
+
+                    <button
+                        onClick={() => setActiveEntryId(null)}
+                        className="ml-4 p-3 rounded-[20px] text-slate-400 hover:bg-slate-100 transition-all flex items-center gap-2"
+                        title="返回仪表盘"
+                    >
+                        <LayoutGrid className="h-5 w-5" />
+                        <span className="text-sm font-bold">首页</span>
+                    </button>
+                </div>
+            </div>
+
+            {/* Content Area */}
+            <main className="flex-1 bg-slate-50 p-10 overflow-y-auto w-full max-w-7xl mx-auto">
+                <div className="bg-white rounded-[40px] shadow-xl border border-slate-100 p-12 min-h-[calc(100vh-180px)] animate-in zoom-in-95 duration-700">
+                    <div className="flex items-center gap-6 mb-10 border-b border-slate-50 pb-8">
+                        <div className={`${activeEntry?.bg} ${activeEntry?.color} p-5 w-20 h-20 rounded-3xl flex items-center justify-center shadow-inner`}>
+                            {activeEntry && <activeEntry.icon className="w-10 h-10" />}
+                        </div>
+                        <div>
+                            <h2 className="text-4xl font-black text-slate-900 tracking-tight">{activeEntry?.title}</h2>
+                            <p className="text-slate-400 text-xl font-medium mt-1">{activeEntry?.description}</p>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <Card className="border-none shadow-xl shadow-slate-200/50 rounded-[32px] overflow-hidden group hover:scale-[1.02] transition-all duration-300">
-                            <CardHeader className="bg-gradient-to-br from-primary to-blue-600 p-8">
-                                <div className="bg-white/20 p-3 w-12 h-12 rounded-2xl backdrop-blur-sm mb-4">
-                                    <LayoutDashboard className="text-white w-6 h-6" />
-                                </div>
-                                <CardTitle className="text-white text-2xl font-bold">System Status</CardTitle>
-                                <CardDescription className="text-white/80 text-lg">Real-time health check</CardDescription>
-                            </CardHeader>
-                            <CardContent className="p-8">
-                                <div className="flex items-center justify-between py-2">
-                                    <span className="text-slate-600 text-lg font-medium">Authentication Service</span>
-                                    <span className="flex items-center text-green-500 font-bold bg-green-50 px-3 py-1 rounded-full text-sm">
-                                        <span className="h-2 w-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                                        Online
-                                    </span>
-                                </div>
-                                <div className="flex items-center justify-between py-2">
-                                    <span className="text-slate-600 text-lg font-medium">Core API Layer</span>
-                                    <span className="flex items-center text-green-500 font-bold bg-green-50 px-3 py-1 rounded-full text-sm">
-                                        <span className="h-2 w-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                                        Operational
-                                    </span>
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        <Card className="border-none shadow-xl shadow-slate-200/50 rounded-[32px] p-8 hover:scale-[1.02] transition-all duration-300">
-                            <div className="bg-orange-100 p-4 w-16 h-16 rounded-[24px] mb-6 flex items-center justify-center">
-                                <Users className="text-orange-600 w-8 h-8" />
+                    {/* Placeholder for actual functionality */}
+                    <div className="w-full h-96 border-4 border-dashed border-slate-100 rounded-[32px] flex items-center justify-center">
+                        <div className="text-center space-y-4">
+                            <div className="p-6 bg-slate-50 rounded-full inline-block">
+                                {activeEntry && <activeEntry.icon className="w-16 h-16 text-slate-200" />}
                             </div>
-                            <h3 className="text-2xl font-black text-slate-800 mb-2">Total Users</h3>
-                            <div className="text-5xl font-black text-slate-900 mb-6 tracking-tighter">1,284</div>
-                            <div className="flex items-center text-green-500 font-bold text-lg">
-                                <ChevronRight className="rotate-270 h-5 w-5 mr-1" />
-                                +12.5% <span className="text-slate-400 font-medium ml-2">since last month</span>
-                            </div>
-                        </Card>
-
-                        <Card className="border-none shadow-xl shadow-slate-200/50 rounded-[32px] p-8 hover:scale-[1.02] transition-all duration-300">
-                            <div className="bg-purple-100 p-4 w-16 h-16 rounded-[24px] mb-6 flex items-center justify-center">
-                                <Bell className="text-purple-600 w-8 h-8" />
-                            </div>
-                            <h3 className="text-2xl font-black text-slate-800 mb-2">Pending Alerts</h3>
-                            <div className="text-5xl font-black text-slate-900 mb-6 tracking-tighter">7</div>
-                            <Button variant="link" className="p-0 text-purple-600 font-bold text-lg h-auto">
-                                View all notifications
-                            </Button>
-                        </Card>
+                            <p className="text-slate-300 text-2xl font-black">功能模块开发中...</p>
+                        </div>
                     </div>
                 </div>
             </main>
+        </div>
+    );
+
+    return (
+        <div className="min-h-screen bg-slate-50">
+            {activeEntryId === null ? <DashboardView /> : <TabbedView />}
         </div>
     );
 }
