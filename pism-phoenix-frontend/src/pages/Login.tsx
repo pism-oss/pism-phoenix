@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Lock, User, ShieldCheck } from "lucide-react";
+import { nanoid } from "nanoid";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,7 +31,7 @@ export default function Login() {
         setIsLoading(true);
         try {
             // 为本次登录请求生成唯一的 keyId
-            const keyId = crypto.randomUUID();
+            const keyId = nanoid();
 
             const publicKey = await getPublicKey(keyId);
 
@@ -70,54 +71,56 @@ export default function Login() {
 
     return (
         <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 p-4">
-            <Card className="w-full max-w-[500px] shadow-xl border-slate-200">
-                <CardHeader className="space-y-1 flex flex-col items-center">
-                    <div className="p-3 bg-primary/10 rounded-full mb-2">
-                        <ShieldCheck className="w-10 h-10 text-primary" />
+            <Card className="w-full max-w-[500px] shadow-xl border-slate-200 overflow-hidden rounded-[40px]">
+                <CardHeader className="space-y-2 flex flex-col items-center pt-10 pb-6">
+                    <div className="p-4 bg-primary/10 rounded-[24px] mb-4 shadow-inner ring-1 ring-primary/20">
+                        <ShieldCheck className="w-12 h-12 text-primary" />
                     </div>
-                    <CardTitle className="text-3xl font-bold tracking-tight">Pism Phoenix</CardTitle>
-                    <CardDescription className="text-slate-500 text-lg">
+                    <CardTitle className="text-4xl font-black tracking-tighter text-slate-900 leading-none">Pism Phoenix</CardTitle>
+                    <CardDescription className="text-slate-400 text-xl font-medium tracking-tight">
                         后台管理系统
                     </CardDescription>
                 </CardHeader>
-                <CardContent>
-                    <form onSubmit={handleLogin} className="space-y-6">
-                        <div className="space-y-3">
-                            <div className="relative">
-                                <User className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
+                <CardContent className="px-10 pb-10">
+                    <form onSubmit={handleLogin} className="flex flex-col gap-8">
+                        <div className="flex flex-col gap-5">
+                            <div className="relative group">
+                                <User className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-slate-400 transition-colors group-focus-within:text-primary" />
                                 <Input
                                     type="text"
                                     placeholder="账号"
-                                    className="pl-10 h-12 text-lg"
+                                    className="pl-12 h-16 text-xl rounded-[20px] bg-slate-50 border-none shadow-inner focus-visible:ring-2 focus-visible:ring-primary/20 transition-all font-medium"
                                     value={account}
                                     onChange={(e) => setAccount(e.target.value)}
                                     disabled={isLoading}
+                                    autoComplete="username"
                                 />
                             </div>
-                            <div className="relative">
-                                <Lock className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
+                            <div className="relative group">
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-slate-400 transition-colors group-focus-within:text-primary" />
                                 <Input
                                     type="password"
                                     placeholder="密码"
-                                    className="pl-10 h-12 text-lg"
+                                    className="pl-12 h-16 text-xl rounded-[20px] bg-slate-50 border-none shadow-inner focus-visible:ring-2 focus-visible:ring-primary/20 transition-all font-medium"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     disabled={isLoading}
+                                    autoComplete="current-password"
                                 />
                             </div>
                         </div>
                         <Button
                             type="submit"
-                            className="w-full h-12 text-lg font-semibold transition-all hover:scale-[1.01]"
+                            className="w-full h-16 text-2xl font-black rounded-[24px] shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
                             disabled={isLoading}
                         >
                             {isLoading ? "登录中..." : "登录"}
                         </Button>
                     </form>
                 </CardContent>
-                <CardFooter className="flex flex-col space-y-4 pt-0">
-                    <div className="text-sm text-slate-400 text-center">
-                        Pism Phoenix 管理平台 © 2026
+                <CardFooter className="flex flex-col space-y-4 py-8 bg-slate-50/50">
+                    <div className="text-xs text-slate-300 font-bold tracking-widest uppercase">
+                        Pism Phoenix Management Platform © 2026
                     </div>
                 </CardFooter>
             </Card>
