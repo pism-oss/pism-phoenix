@@ -35,15 +35,17 @@ export default function HomeDesktop() {
     const entries: Entry[] = [
         { id: "user-mgmt", title: "用户管理", description: "管理系统用户信息及状态", icon: Users, color: "text-blue-600", bg: "bg-blue-50" },
         { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
+        { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
+        { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
+        { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
+        { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
+        { id: "perms", title: "权限配置", description: "设置系统角色及功能权限", icon: ShieldCheck, color: "text-green-600", bg: "bg-green-50" },
         { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
-        { id: "logs", title: "日志审计", description: "查看系统运行及操作日志", icon: History, color: "text-purple-600", bg: "bg-purple-50" },
-        { id: "logs", title: "日志审计", description: "查看系统运行及操作日志", icon: History, color: "text-purple-600", bg: "bg-purple-50" },
-        { id: "logs", title: "日志审计", description: "查看系统运行及操作日志", icon: History, color: "text-purple-600", bg: "bg-purple-50" },
-        { id: "logs", title: "日志审计", description: "查看系统运行及操作日志", icon: History, color: "text-purple-600", bg: "bg-purple-50" },
-        { id: "logs", title: "日志审计", description: "查看系统运行及操作日志", icon: History, color: "text-purple-600", bg: "bg-purple-50" },
-        { id: "logs", title: "日志审计", description: "查看系统运行及操作日志", icon: History, color: "text-purple-600", bg: "bg-purple-50" },
-        { id: "logs", title: "日志审计", description: "查看系统运行及操作日志", icon: History, color: "text-purple-600", bg: "bg-purple-50" },
-        { id: "logs", title: "日志审计", description: "查看系统运行及操作日志", icon: History, color: "text-purple-600", bg: "bg-purple-50" },
+        { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
+        { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
+        { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
+        { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
+        { id: "dict", title: "数据字典", description: "维护系统通用数据及常量", icon: BookOpen, color: "text-orange-600", bg: "bg-orange-50" },
         { id: "logs", title: "日志审计", description: "查看系统运行及操作日志", icon: History, color: "text-purple-600", bg: "bg-purple-50" }
     ];
 
@@ -106,18 +108,20 @@ export default function HomeDesktop() {
                         {user?.account?.charAt(0).toUpperCase() || <User className="w-6 h-6" />}
                     </div>
                 </div>
-                <nav className="flex-1 flex flex-col gap-6">
-                    {entries.map((entry) => (
-                        <button
-                            key={entry.id}
-                            onClick={() => setActiveEntryId(entry.id)}
-                            className={`p-4 rounded-2xl transition-all duration-300 relative group ${activeEntryId === entry.id ? "bg-primary text-white shadow-xl shadow-primary/30 scale-110" : "bg-white text-slate-400 hover:text-slate-900 hover:shadow-md"
-                                }`}
-                        >
-                            <entry.icon className="h-8 w-8" />
-                            {activeEntryId === entry.id && <span className="absolute -right-3 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-primary rounded-full" />}
-                        </button>
-                    ))}
+                <nav className="flex-1 flex flex-col gap-6 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:display-none py-2 px-6 w-full">
+                    <div className="flex flex-col gap-6 items-center w-full">
+                        {entries.map((entry) => (
+                            <button
+                                key={entry.id}
+                                onClick={() => setActiveEntryId(entry.id)}
+                                className={`p-4 rounded-2xl transition-all duration-300 relative group shrink-0 ${activeEntryId === entry.id ? "bg-primary text-white shadow-xl shadow-primary/30 scale-110" : "bg-white text-slate-400 hover:text-slate-900 hover:shadow-md"
+                                    }`}
+                            >
+                                <entry.icon className="h-8 w-8" />
+                                {activeEntryId === entry.id && <span className="absolute -right-2 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-primary rounded-full transition-all" />}
+                            </button>
+                        ))}
+                    </div>
                 </nav>
                 <div className="mt-auto flex flex-col gap-6">
                     <button onClick={() => setActiveEntryId(null)} className="p-4 rounded-2xl bg-white text-slate-400 hover:text-primary hover:shadow-md transition-all duration-300">
