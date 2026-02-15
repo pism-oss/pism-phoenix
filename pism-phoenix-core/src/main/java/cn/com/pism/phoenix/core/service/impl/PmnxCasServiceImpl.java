@@ -14,7 +14,12 @@ import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import cn.hutool.crypto.digest.BCrypt;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+
+import java.security.InvalidParameterException;
+
+import static cn.com.pism.phoenix.models.constant.PmnxCasConstants.RSA_POOL_EXPIRE_SECONDS;
 
 /**
  * @author perccyking
@@ -41,13 +46,14 @@ public class PmnxCasServiceImpl implements PmnxCasService {
     @Override
     public PmnxCasLoginRespVo login(PmnxCasPasswordLoginReqVo reqVo) {
 
-        RSA rsa = pmnxRsaService.getRsaByKeyId(reqVo.getKeyId());
+        String keyId = normalizeKeyId(reqVo.getKeyId());
+        RSA rsa = pmnxRsaService.getRsaByKeyId(keyId);
 
         String decryptAccount = rsa.decryptStr(reqVo.getAccount(), KeyType.PrivateKey);
         String decryptPassword = rsa.decryptStr(reqVo.getPassword(), KeyType.PrivateKey);
         //通过账号获取密码
         String password = pmnxUserService.getPasswordByAccount(decryptAccount);
-        if (!BCrypt.checkpw(decryptPassword, password)) {
+        if (StringUtils.isBlank(password) || !BCrypt.checkpw(decryptPassword, password)) {
             throw new UsernameOrPasswordErrorException();
         }
 
@@ -83,7 +89,8 @@ public class PmnxCasServiceImpl implements PmnxCasService {
      */
     @Override
     public String getPublicKey(String keyId) {
-        return pmnxRsaService.getOrCreateRsaBo(keyId).getPublicKeyBase64();
+        String useKeyId = normalizeKeyId(keyId);
+        return pmnxRsaService.getOrCreateRsa(useKeyId, RSA_POOL_EXPIRE_SECONDS).getPublicKeyBase64();
     }
 
     /**
@@ -99,7 +106,15 @@ public class PmnxCasServiceImpl implements PmnxCasService {
      */
     @Override
     public String rsaEncryptPublic(String text, String keyId) {
-        RSA rsa = pmnxRsaService.getOrCreateRsaBo(keyId, 300);
+        String useKeyId = normalizeKeyId(keyId);
+        RSA rsa = pmnxRsaService.getOrCreateRsa(useKeyId, RSA_POOL_EXPIRE_SECONDS);
         return rsa.encryptBase64(text, KeyType.PublicKey);
+    }
+
+    private String normalizeKeyId(String keyId) {
+        if (StringUtils.isBlank(keyId)) {
+            throw new InvalidParameterException("empty keyId");
+        }
+        return keyId;
     }
 }
