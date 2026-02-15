@@ -29,5 +29,10 @@ public class PmnxUserSaveReqVo {
     @Schema(description = "邮箱")
     private String email;
 
+    /**
+     * 是否启用
+     */
+    @Schema(description = "是否启用")
+    private Boolean enabled;
 
 }

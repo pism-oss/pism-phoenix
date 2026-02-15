@@ -41,4 +41,16 @@ public interface PmnxUserMapper extends ComMapper<PmnxUser> {
      * @since 24-09-22 15:56
      */
     List<PmnxUserPageRespVo> page(Page<PmnxUserPageRespVo> page, @Param("param") PmnxUserPageReqVo param);
+
+    /**
+     * <p>
+     * 更新用户密码
+     * </p>
+     * by perccyking
+     *
+     * @param id       : 用户id
+     * @param password : 密码
+     * @since 26-02-09 00:56
+     */
+    void updateUserPasswordById(@Param("id") Long id, @Param("password") String password);
 }

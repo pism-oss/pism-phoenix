@@ -17,7 +17,7 @@ public interface PmnxRsaService {
      * @return {@link RSA} rsa
      * @since 24-09-13 00:24
      */
-    RSA getOrCreateRsaBo(String keyId);
+    RSA getOrCreateRsa(String keyId);
 
     /**
      * <p>
@@ -30,7 +30,7 @@ public interface PmnxRsaService {
      * @return {@link RSA} rsa
      * @since 24-09-13 12:53
      */
-    RSA getOrCreateRsaBo(String keyId, long expire);
+    RSA getOrCreateRsa(String keyId, long expire);
 
     /**
      * <p>

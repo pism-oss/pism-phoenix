@@ -44,5 +44,13 @@
                 INSTR(account, #{param.keyWord})
                 )
         </if>
+        <if test="param.enabled != null">
+            AND enabled = #{param.enabled}
+        </if>
+        ORDER BY create_time DESC
     </select>
+
+    <update id="updateUserPasswordById">
+        UPDATE pmnx_user SET password = #{password} WHERE id = #{id}
+    </update>
 </mapper>

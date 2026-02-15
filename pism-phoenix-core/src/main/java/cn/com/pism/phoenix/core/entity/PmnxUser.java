@@ -43,8 +43,6 @@ public class PmnxUser extends ComEntity {
 
     public static final String COL_EMAIL = "email";
 
-    public static final String COL_PASSWORD = "password";
-
     public static final String COL_ENABLED = "enabled";
 
 }

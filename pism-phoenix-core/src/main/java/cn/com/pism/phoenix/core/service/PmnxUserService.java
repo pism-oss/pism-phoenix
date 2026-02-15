@@ -2,7 +2,10 @@ package cn.com.pism.phoenix.core.service;
 
 import cn.com.pism.phoenix.core.entity.PmnxUser;
 import cn.com.pism.phoenix.models.vo.page.PageReqVo;
+import cn.com.pism.phoenix.models.vo.user.req.PmnxUserDeleteReqVo;
 import cn.com.pism.phoenix.models.vo.user.req.PmnxUserPageReqVo;
+import cn.com.pism.phoenix.models.vo.user.req.PmnxUserResetPasswordReqVo;
+import cn.com.pism.phoenix.models.vo.user.req.PmnxUserSaveReqVo;
 import cn.com.pism.phoenix.models.vo.user.resp.PmnxUserPageRespVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -36,4 +39,37 @@ public interface PmnxUserService extends IService<PmnxUser> {
      * @since 24-09-22 03:36
      */
     Page<PmnxUserPageRespVo> page(PageReqVo<PmnxUserPageReqVo> reqVo);
+
+    /**
+     * <p>
+     * 保存用户
+     * </p>
+     * by perccyking
+     *
+     * @param reqVo : 请求参数
+     * @since 24-09-22 21:46
+     */
+    void save(PmnxUserSaveReqVo reqVo);
+
+    /**
+     * <p>
+     * 删除用户（逻辑删除）
+     * </p>
+     * by perccyking
+     *
+     * @param reqVo : 请求参数
+     * @since 26-02-08 16:20
+     */
+    void delete(PmnxUserDeleteReqVo reqVo);
+
+    /**
+     * <p>
+     * 重置用户密码
+     * </p>
+     * by perccyking
+     *
+     * @param reqVo : 请求参数
+     * @since 26-02-08 16:20
+     */
+    void resetPassword(PmnxUserResetPasswordReqVo reqVo);
 }
