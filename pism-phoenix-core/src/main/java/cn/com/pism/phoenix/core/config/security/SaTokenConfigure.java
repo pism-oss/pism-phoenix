@@ -3,10 +3,15 @@ package cn.com.pism.phoenix.core.config.security;
 import cn.com.pism.exception.PismException;
 import cn.com.pism.phoenix.core.config.PmnxProperties;
 import cn.com.pism.phoenix.core.service.PmnxSecurityService;
+import cn.com.pism.phoenix.core.util.SpringMvcUtil;
+import cn.com.pism.phoenix.models.JsonResult;
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.strategy.SaStrategy;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -107,5 +112,13 @@ public class SaTokenConfigure implements WebMvcConfigurer {
         SaRouter.match(whitelist)
                 .check(() -> log.info(format("anonymous url:{}", SaHolder.getRequest().getRequestPath())))
                 .stop();
+    }
+
+    @PostConstruct
+    private void rewriteSaStrategy() {
+        // 请求路径错误，定义响应信息
+        SaStrategy.instance.requestPathInvalidHandle = (e, request, response) ->
+                SpringMvcUtil.writeToResponse((HttpServletResponse) response, JsonResult.failed("request path error"));
+
     }
 }

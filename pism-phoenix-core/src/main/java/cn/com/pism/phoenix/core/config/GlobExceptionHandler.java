@@ -3,7 +3,6 @@ package cn.com.pism.phoenix.core.config;
 import cn.com.pism.exception.PismException;
 import cn.com.pism.phoenix.models.JsonResult;
 import cn.com.pism.phoenix.models.exception.BizException;
-import cn.dev33.satoken.exception.SaTokenException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;

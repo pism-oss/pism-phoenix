@@ -53,13 +53,6 @@ public class JsonResult<T> {
     @Schema(description = "是否成功")
     private boolean success;
 
-    /**
-     * 链路追踪 id
-     */
-    @Schema(description = "链路追踪 id")
-    private String tid;
-
-
     public boolean isSuccess() {
         //如果code不等于1 都为false
         return code == SUCCESS_FLAG;
