@@ -1,8 +1,11 @@
 package cn.com.pism.phoenix.models;
 
+import cn.com.pism.exception.DefaultErrorCode;
 import cn.com.pism.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.util.Objects;
 
 /**
  * @author perccyking
@@ -13,14 +16,13 @@ import lombok.Data;
 public class JsonResult<T> {
 
 
-    public static final int SUCCESS_FLAG = 1;
+    public static final String SUCCESS_FLAG = "1";
 
-    public static final int FAILED_FLAG = 0;
     /**
      * 状态：0：失败，1：成功
      */
     @Schema(description = "状态：0：失败，1：成功")
-    private int code;
+    private String code;
 
     /**
      * 消息
@@ -55,7 +57,7 @@ public class JsonResult<T> {
 
     public boolean isSuccess() {
         //如果code不等于1 都为false
-        return code == SUCCESS_FLAG;
+        return Objects.equals(code, SUCCESS_FLAG);
     }
 
     /**
@@ -69,7 +71,7 @@ public class JsonResult<T> {
      * @return {@link JsonResult<T>}
      * @since 24-08-26 16:29
      */
-    public static <T> JsonResult<T> response(int code, String msg, T data) {
+    public static <T> JsonResult<T> response(String code, String msg, T data) {
         JsonResult<T> result = new JsonResult<>();
         result.setMsg(msg);
         result.setCode(code);
@@ -143,7 +145,7 @@ public class JsonResult<T> {
      * @since 24-08-26 16:29
      */
     public static <T> JsonResult<T> failed(String msg, T data) {
-        return response(FAILED_FLAG, msg, data);
+        return response(String.valueOf(DefaultErrorCode.SYSTEM_ERROR.getCode()), msg, data);
     }
 
     /**
@@ -195,10 +197,10 @@ public class JsonResult<T> {
      * @return {@link JsonResult<T>}
      * @since 24-08-26 16:29
      */
-    public static <T> JsonResult<T> failed(ErrorCode errorCode) {
+    public static <T> JsonResult<T> failed(ErrorCode<?> errorCode) {
         JsonResult<T> result = new JsonResult<>();
         result.setMsg(errorCode.getMsg());
-        result.setCode(errorCode.getCode());
+        result.setCode(String.valueOf(errorCode.getCode()));
         result.setTs(System.currentTimeMillis());
         return result;
     }
@@ -213,7 +215,7 @@ public class JsonResult<T> {
      * @return {@link JsonResult<T>}
      * @since 24-08-26 16:29
      */
-    public static <T> JsonResult<T> failedData(ErrorCode errorCode, T data) {
+    public static <T> JsonResult<T> failedData(ErrorCode<?> errorCode, T data) {
         JsonResult<T> failed = failed(errorCode);
         failed.setData(data);
         return failed;

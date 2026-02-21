@@ -1,5 +1,5 @@
 export interface JsonResult<T> {
-    code: number;
+    code: string;
     msg: string;
     data: T;
     ts: number;

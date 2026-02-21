@@ -6,25 +6,41 @@
         <!--@Table pmnx_user-->
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl"/>
+        <result column="gender" jdbcType="TINYINT" property="gender"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="enabled" jdbcType="BIT" property="enabled"/>
-        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
-        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
         <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
-        <result column="dlt" jdbcType="BIT" property="dlt"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="deleted" jdbcType="TINYINT" property="deleted"/>
+        <result column="delete_time" jdbcType="BIGINT" property="deleteTime"/>
+        <result column="delete_by" jdbcType="BIGINT" property="deleteBy"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         id,
         account,
+        `password`,
+        nickname,
+        real_name,
+        avatar_url,
+        gender,
         email,
-        enabled,
-        create_by,
-        update_by,
+        mobile,
+        `status`,
         create_time,
+        create_by,
         update_time,
-        dlt
+        update_by,
+        deleted,
+        delete_time,
+        delete_by
     </sql>
 
     <select id="getPasswordByAccount" resultType="java.lang.String">
@@ -51,6 +67,8 @@
     </select>
 
     <update id="updateUserPasswordById">
-        UPDATE pmnx_user SET password = #{password} WHERE id = #{id}
+        UPDATE pmnx_user
+        SET password = #{password}
+        WHERE id = #{id}
     </update>
 </mapper>

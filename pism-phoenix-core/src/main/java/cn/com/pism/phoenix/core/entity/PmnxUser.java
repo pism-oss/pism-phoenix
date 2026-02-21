@@ -1,10 +1,16 @@
 package cn.com.pism.phoenix.core.entity;
 
+import cn.com.pism.exception.ErrorCode;
+import cn.com.pism.exception.PismException;
 import cn.com.pism.phoenix.core.common.ComEntity;
+import cn.com.pism.phoenix.models.enums.impl.UserGenerEnum;
+import cn.com.pism.phoenix.models.enums.impl.UserStatusEnum;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 import lombok.experimental.Accessors;
+
+import static cn.com.pism.phoenix.models.exception.PmnxErrorCode.*;
 
 /**
  * 用户
@@ -27,22 +33,63 @@ public class PmnxUser extends ComEntity {
     private String account;
 
     /**
-     * 邮箱
+     * 电子邮箱
      */
     @TableField(value = "email")
     private String email;
 
     /**
-     * 是否启用，1：启用，0：禁用，默认启用
+     * 密码
      */
-    @TableField(value = "enabled")
-    @Builder.Default
-    private boolean enabled = true;
+    @TableField(value = "`password`")
+    private String password;
 
-    public static final String COL_ACCOUNT = "account";
+    /**
+     * 用户昵称
+     */
+    @TableField(value = "nickname")
+    private String nickname;
 
-    public static final String COL_EMAIL = "email";
+    /**
+     * 真实姓名
+     */
+    @TableField(value = "real_name")
+    private String realName;
 
-    public static final String COL_ENABLED = "enabled";
+    /**
+     * 头像URL
+     */
+    @TableField(value = "avatar_url")
+    private String avatarUrl;
+
+    /**
+     * 性别 0-未知 1-男 2-女
+     */
+    @TableField(value = "gender")
+    private UserGenerEnum gender = UserGenerEnum.UNKNOWN;
+
+    /**
+     * 手机号码（带国家码）
+     */
+    @TableField(value = "mobile")
+    private String mobile;
+
+    /**
+     * 状态 1-正常 2-禁用 3-冻结
+     */
+    @TableField(value = "`status`")
+    private UserStatusEnum status = UserStatusEnum.NORMAL;
+
+    public void statusCheck() {
+        if (!UserStatusEnum.NORMAL.equals(this.status)) {
+            ErrorCode<?> errorCode = CANNOT_ACCESS;
+            if (UserStatusEnum.DISABLED.equals(this.status)) {
+                errorCode = USER_DISABLED;
+            } else if (UserStatusEnum.FROZEN.equals(this.status)) {
+                errorCode = USER_FROZEN;
+            }
+            throw new PismException(errorCode);
+        }
+    }
 
 }

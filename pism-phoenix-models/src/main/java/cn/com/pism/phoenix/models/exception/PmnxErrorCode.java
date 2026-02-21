@@ -14,11 +14,17 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum PmnxErrorCode implements ErrorCode {
+public enum PmnxErrorCode implements ErrorCode<Integer> {
 
     USERNAME_OR_PASSWORD_ERROR(4000, "用户名或密码错误"),
 
-    CANNOT_ACCESS(4001, "无法访问");
+    CANNOT_ACCESS(4001, "无法访问"),
+
+    USER_DISABLED(4002, "用户被禁用"),
+
+    USER_FROZEN(4003, "用户被冻结"),
+    ;
+
     private final Integer code;
 
     private final String msg;

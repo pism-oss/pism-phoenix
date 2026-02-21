@@ -93,7 +93,7 @@ public class PmnxUserServiceImpl extends ServiceImpl<PmnxUserMapper, PmnxUser> i
         //账号唯一校验
         boolean exists = lambdaQuery()
                 .eq(PmnxUser::getAccount, reqVo.getAccount())
-                .eq(PmnxUser::isDlt, false)
+                .eq(PmnxUser::isDeleted, false)
                 .ne(reqVo.getId() != null, PmnxUser::getId, reqVo.getId())
                 .exists();
         if (exists) {
@@ -103,9 +103,9 @@ public class PmnxUserServiceImpl extends ServiceImpl<PmnxUserMapper, PmnxUser> i
         pmnxUser.setAccount(reqVo.getAccount());
         pmnxUser.setEmail(reqVo.getEmail());
         if (reqVo.getEnabled() != null) {
-            pmnxUser.setEnabled(reqVo.getEnabled());
+//            pmnxUser.setStatus(reqVo.getEnabled());
         } else if (pmnxUser.getId() == null) {
-            pmnxUser.setEnabled(Boolean.TRUE);
+//            pmnxUser.setEnabled(Boolean.TRUE);
         }
 
         updateById(pmnxUser);
@@ -132,14 +132,13 @@ public class PmnxUserServiceImpl extends ServiceImpl<PmnxUserMapper, PmnxUser> i
         //逻辑删除用户
         lambdaUpdate()
                 .in(PmnxUser::getId, ids)
-                .set(PmnxUser::isDlt, true)
-                .set(PmnxUser::isEnabled, false)
+                .set(PmnxUser::isDeleted, true)
                 .update();
 
         //逻辑删除用户角色关系
         pmnxUserRoleService.lambdaUpdate()
                 .in(PmnxUserRole::getUserId, ids)
-                .set(PmnxUserRole::isDlt, true)
+                .set(PmnxUserRole::isDeleted, true)
                 .update();
     }
 

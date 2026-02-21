@@ -3,6 +3,7 @@ package cn.com.pism.phoenix.core.common;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 
 /**
@@ -22,44 +23,45 @@ public class ComEntity {
 
 
     /**
-     * 创建人id
-     */
-    @TableField(value = "create_by")
-    private Long createBy;
-
-    /**
-     * 更新人id
-     */
-    @TableField(value = "update_by")
-    private String updateBy;
-
-    /**
-     * 创建时间
+     * 创建时间戳（毫秒）
      */
     @TableField(value = "create_time")
     private Long createTime;
 
     /**
-     * 更新时间
+     * 创建人ID
+     */
+    @TableField(value = "create_by")
+    private Long createBy;
+
+    /**
+     * 更新时间戳（毫秒）
      */
     @TableField(value = "update_time")
     private Long updateTime;
 
     /**
-     * 逻辑删除标志位，1代表删除，0代表未删除
+     * 更新人ID
      */
-    @TableField(value = "dlt")
-    private boolean dlt;
+    @TableField(value = "update_by")
+    private Long updateBy;
 
-    public static final String COL_ID = "id";
+    /**
+     * 是否删除 0-未删除 1-已删除
+     */
+    @TableField(value = "deleted")
+    @TableLogic(delval = "1", value = "0")
+    private boolean deleted;
 
-    public static final String COL_CREATE_BY = "create_by";
+    /**
+     * 删除时间戳（毫秒）
+     */
+    @TableField(value = "delete_time")
+    private Long deleteTime;
 
-    public static final String COL_UPDATE_BY = "update_by";
-
-    public static final String COL_CREATE_TIME = "create_time";
-
-    public static final String COL_UPDATE_TIME = "update_time";
-
-    public static final String COL_DLT = "dlt";
+    /**
+     * 删除人ID
+     */
+    @TableField(value = "delete_by")
+    private Long deleteBy;
 }

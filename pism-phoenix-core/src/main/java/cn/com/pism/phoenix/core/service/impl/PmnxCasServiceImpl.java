@@ -57,7 +57,12 @@ public class PmnxCasServiceImpl implements PmnxCasService {
             throw new UsernameOrPasswordErrorException();
         }
 
-        return doLogin(pmnxUserService.lambdaQuery().eq(PmnxUser::getAccount, decryptAccount).one());
+        PmnxUser pmnxUser = pmnxUserService.lambdaQuery().eq(PmnxUser::getAccount, decryptAccount).one();
+
+        // 状态检查
+        pmnxUser.statusCheck();
+
+        return doLogin(pmnxUser);
     }
 
     private PmnxCasLoginRespVo doLogin(PmnxUser pmnxUser) {

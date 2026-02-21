@@ -59,15 +59,6 @@ export default function LoginDesktop() {
         <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 p-8">
             <Card className="w-full max-w-[520px] shadow-2xl border-none overflow-hidden rounded-[40px] bg-white">
                 <CardHeader className="space-y-4 flex flex-col items-center pt-16 pb-12 px-12">
-                    <div className="p-6 bg-primary/10 rounded-[32px] mb-2 shadow-inner ring-1 ring-primary/20 animate-in fade-in zoom-in duration-700">
-                        <ShieldCheck className="w-16 h-16 text-primary" />
-                    </div>
-                    <div className="text-center space-y-3">
-                        <CardTitle className="text-5xl font-black tracking-tighter text-slate-900 leading-none">Pism Phoenix</CardTitle>
-                        <CardDescription className="text-slate-400 text-2xl font-medium tracking-tight">
-                            后台管理系统 · 桌面端
-                        </CardDescription>
-                    </div>
                 </CardHeader>
                 <CardContent className="px-16 pb-16">
                     <form onSubmit={handleLogin} className="flex flex-col gap-12">
@@ -107,15 +98,10 @@ export default function LoginDesktop() {
                                     <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin" />
                                     <span>验证中</span>
                                 </div>
-                            ) : "开启探索"}
+                            ) : "登录"}
                         </Button>
                     </form>
                 </CardContent>
-                <CardFooter className="flex flex-col py-12 bg-slate-50/50 border-t border-slate-100">
-                    <div className="text-xs text-slate-300 font-black tracking-[0.3em] uppercase text-center opacity-60 px-10">
-                        Professional Management UI Framework v4.0
-                    </div>
-                </CardFooter>
             </Card>
         </div>
     );

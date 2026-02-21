@@ -3,7 +3,7 @@ import { SUCCESS_FLAG } from "./types";
 import type { JsonResult } from "./types";
 
 const api = axios.create({
-    baseURL: "http://192.168.31.6:8080",
+    baseURL: "http://127.0.0.1:8080",
     timeout: 10000,
     headers: {
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ api.interceptors.response.use(
 
         // Check if the response is actually a JsonResult
         if (result && typeof result.code !== 'undefined') {
-            if (result.code === SUCCESS_FLAG) {
+            if (result.success) {
                 // Return the inner data
                 return { ...response, data: result.data };
             } else {
