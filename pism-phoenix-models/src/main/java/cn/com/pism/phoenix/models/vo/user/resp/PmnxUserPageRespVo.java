@@ -1,6 +1,9 @@
 package cn.com.pism.phoenix.models.vo.user.resp;
 
+import cn.com.pism.phoenix.models.enums.impl.UserStatusEnum;
+import cn.com.pism.phoenix.models.jackson.serializer.DictEnumSerializer;
 import cn.com.pism.phoenix.models.jackson.serializer.ToStringSerializer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -27,16 +30,41 @@ public class PmnxUserPageRespVo {
     private String account;
 
     /**
+     * 昵称
+     */
+    @Schema(description = "昵称")
+    private String nickname;
+
+    /**
+     * 真名
+     */
+    @Schema(description = "真名")
+    private String realName;
+
+    /**
+     * 头像
+     */
+    @Schema(description = "头像")
+    private String avatar;
+
+    /**
+     * 性别
+     */
+    @Schema(description = "性别")
+    private String gender;
+
+    /**
      * 邮箱
      */
     @Schema(description = "邮箱")
     private String email;
 
     /**
-     * 是否启用
+     * 用户状态
      */
-    @Schema(description = "是否启用")
-    private boolean enabled = true;
+    @Schema(description = "用户状态")
+    @JsonSerialize(using = DictEnumSerializer.class)
+    private UserStatusEnum status;
 
     /**
      * 创建时间

@@ -1,4 +1,4 @@
-package cn.com.pism.phoenix.core.aspect;
+package cn.com.pism.phoenix.core.config.swagger;
 
 import io.swagger.v3.core.util.Json;
 import io.swagger.v3.oas.models.OpenAPI;

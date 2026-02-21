@@ -1,4 +1,4 @@
-package cn.com.pism.phoenix.core.config.knife4j;
+package cn.com.pism.phoenix.core.config.swagger;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * knife4j 配置
+ * swagger 配置
  *
  * @author perccyking
  * @since 24-06-22 21:53
  */
 @Configuration
-public class PmnxKnife4jConfiguration {
+public class PmnxSwaggerConfiguration {
 
     @Bean
     public GroupedOpenApi coreApi() {
