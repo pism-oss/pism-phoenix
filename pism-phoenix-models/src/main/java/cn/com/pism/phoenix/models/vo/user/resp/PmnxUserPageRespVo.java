@@ -1,9 +1,9 @@
 package cn.com.pism.phoenix.models.vo.user.resp;
 
+import cn.com.pism.phoenix.models.enums.impl.UserGenerEnum;
 import cn.com.pism.phoenix.models.enums.impl.UserStatusEnum;
 import cn.com.pism.phoenix.models.jackson.serializer.DictEnumSerializer;
 import cn.com.pism.phoenix.models.jackson.serializer.ToStringSerializer;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -45,13 +45,14 @@ public class PmnxUserPageRespVo {
      * 头像
      */
     @Schema(description = "头像")
-    private String avatar;
+    private String avatarUrl;
 
     /**
      * 性别
      */
     @Schema(description = "性别")
-    private String gender;
+    @JsonSerialize(using = DictEnumSerializer.class)
+    private UserGenerEnum gender;
 
     /**
      * 邮箱

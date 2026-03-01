@@ -17,11 +17,4 @@ public class PmnxUserPageReqVo {
     @Schema(description = "关键字")
     private String keyWord;
 
-    /**
-     * 是否启用
-     */
-    @Schema(description = "是否启用")
-    private Boolean enabled;
-
-
 }
