@@ -2,13 +2,13 @@ package cn.com.pism.phoenix.core.util;
 
 import cn.com.pism.phoenix.utils.Jackson;
 import cn.com.pism.phoenix.utils.ObjectExUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -49,7 +49,7 @@ public class CacheUtil {
 
                 // 反序列化缓存值并返回
                 return Jackson.instance().readValue(cacheValue, typeReference);
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
 
                 // 处理反序列化失败的情况
                 stringRedisTemplate.delete(key);

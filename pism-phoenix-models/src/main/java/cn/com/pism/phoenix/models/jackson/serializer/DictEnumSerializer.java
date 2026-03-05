@@ -2,13 +2,13 @@ package cn.com.pism.phoenix.models.jackson.serializer;
 
 import cn.com.pism.phoenix.annotations.serialize.DictEnumSerialize;
 import cn.com.pism.phoenix.models.enums.DictEnum;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonStreamContext;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import lombok.extern.slf4j.Slf4j;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.BeanProperty;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,27 +17,29 @@ import java.util.Map;
  * @since 24-09-12 13:09
  */
 @Slf4j
-public class DictEnumSerializer extends JsonSerializer<DictEnum<?, ?>> {
+public class DictEnumSerializer extends ValueSerializer<DictEnum<?, ?>> {
+
+    private BeanProperty beanProperty;
+
     @Override
-    public void serialize(DictEnum<?, ?> value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(DictEnum<?, ?> value, JsonGenerator gen, SerializationContext ctxt) throws JacksonException {
         String k = "k";
         String v = "v";
-        JsonStreamContext outputContext = serializers.getGenerator().getOutputContext();
-        Object currentValue = outputContext.getCurrentValue();
-        String fieldName = outputContext.getCurrentName();
-        try {
-            DictEnumSerialize annotation = currentValue.getClass().getDeclaredField(fieldName).getAnnotation(DictEnumSerialize.class);
-            if (annotation != null) {
-                k = annotation.keyName();
-                v = annotation.valueName();
-            }
-        } catch (NoSuchFieldException e) {
-            log.error(e.getMessage(), e);
+        DictEnumSerialize annotation = beanProperty.getAnnotation(DictEnumSerialize.class);
+        if (annotation != null) {
+            k = annotation.keyName();
+            v = annotation.valueName();
         }
         Map<String, Object> jsonObject = HashMap.newHashMap(3);
         jsonObject.put(k, value.getValue());
         jsonObject.put(v, value.getName());
         jsonObject.put("ext", value.getExt());
-        gen.writeObject(jsonObject);
+        gen.writePOJO(jsonObject);
+    }
+
+    @Override
+    public ValueSerializer<?> createContextual(SerializationContext ctxt, BeanProperty property) {
+        this.beanProperty = property;
+        return super.createContextual(ctxt, property);
     }
 }

@@ -4,7 +4,7 @@ import cn.com.pism.phoenix.core.service.PmnxSecurityService;
 import cn.com.pism.phoenix.core.util.CacheUtil;
 import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;
-import com.fasterxml.jackson.core.type.TypeReference;
+import tools.jackson.core.type.TypeReference;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;

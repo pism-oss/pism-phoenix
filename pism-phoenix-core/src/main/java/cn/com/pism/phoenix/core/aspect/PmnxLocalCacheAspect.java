@@ -4,7 +4,7 @@ import cn.com.pism.exception.PismException;
 import cn.com.pism.phoenix.annotations.cache.PmnxLocalCache;
 import cn.com.pism.phoenix.core.util.LocalCacheUtil;
 import cn.com.pism.phoenix.models.config.SystemConfig;
-import com.fasterxml.jackson.core.type.TypeReference;
+import tools.jackson.core.type.TypeReference;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

@@ -2,14 +2,14 @@ package cn.com.pism.phoenix.core.util;
 
 import cn.com.pism.phoenix.utils.Jackson;
 import cn.com.pism.phoenix.utils.ObjectExUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -70,7 +70,7 @@ public class LocalCacheUtil {
 
                 //本地缓存有数据，直接序列化返回
                 return Jackson.instance().readValue(cacheValue, typeReference);
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
 
                 //序列化失败，删除本地缓存
                 cache.invalidate(key);

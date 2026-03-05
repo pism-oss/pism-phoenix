@@ -1,10 +1,7 @@
 package cn.com.pism.phoenix.utils;
 
-import cn.com.pism.exception.PismException;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.util.List;
 
@@ -18,16 +15,15 @@ public class Jackson {
     private Jackson() {
     }
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final JsonMapper OBJECT_MAPPER = new JsonMapper();
 
     /**
      * 添加了部分配置信息
      */
-    private static final ObjectMapper OBJECT_MAPPER1 = new ObjectMapper();
+    private static final JsonMapper OBJECT_MAPPER1 = new JsonMapper();
 
     static {
         //序列化设置非空选项
-        OBJECT_MAPPER1.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
     /**
@@ -35,7 +31,7 @@ public class Jackson {
      *
      * @return 实例
      */
-    public static ObjectMapper instance() {
+    public static JsonMapper instance() {
         return OBJECT_MAPPER;
     }
 
@@ -45,7 +41,7 @@ public class Jackson {
      * @return 实例
      * @see JsonInclude.Include#NON_NULL
      */
-    public static ObjectMapper instance1() {
+    public static JsonMapper instance1() {
         return OBJECT_MAPPER1;
     }
 
@@ -60,12 +56,7 @@ public class Jackson {
      * @since 24-06-22 18:27
      */
     public static String toJsonString(Object object) {
-        try {
-            return instance().writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage(), e);
-            throw new PismException(e);
-        }
+        return instance().writeValueAsString(object);
     }
 
     /**
@@ -79,12 +70,7 @@ public class Jackson {
      * @since 24-06-22 18:28
      */
     public static String toJsonStringNonNull(Object object) {
-        try {
-            return instance1().writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage(), e);
-            throw new PismException(e);
-        }
+        return instance1().writeValueAsString(object);
     }
 
     /**
@@ -99,21 +85,11 @@ public class Jackson {
      * @since 24-06-22 18:28
      */
     public static <T> List<T> parseArray(String json, Class<T> clazz) {
-        try {
-            return instance().readValue(json, instance().getTypeFactory().constructCollectionType(List.class, clazz));
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage(), e);
-            throw new PismException(e);
-        }
+        return instance().readValue(json, instance().getTypeFactory().constructCollectionType(List.class, clazz));
     }
 
     public static <T> T parseObject(String json, Class<T> clazz) {
-        try {
-            return instance().readValue(json, clazz);
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage(), e);
-            throw new PismException(e);
-        }
+        return instance().readValue(json, clazz);
     }
 
 }

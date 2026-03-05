@@ -1,12 +1,11 @@
 package cn.com.pism.phoenix.models.jackson.serializer;
 
 import cn.com.pism.phoenix.utils.Jackson;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import org.apache.commons.lang3.ClassUtils;
-
-import java.io.IOException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
 /**
  * 序列化为string
@@ -14,10 +13,10 @@ import java.io.IOException;
  * @author perccyking
  * @since 24-06-03 18:48
  */
-public class ToStringSerializer extends JsonSerializer<Object> {
+public class ToStringSerializer extends ValueSerializer<Object> {
 
     @Override
-    public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(Object value, JsonGenerator gen, SerializationContext ctxt) throws JacksonException {
         String res = null;
         if (value != null) {
             if (ClassUtils.isPrimitiveOrWrapper(value.getClass())) {

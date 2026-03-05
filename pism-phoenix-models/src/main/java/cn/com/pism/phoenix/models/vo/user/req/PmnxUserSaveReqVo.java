@@ -1,33 +1,19 @@
 package cn.com.pism.phoenix.models.vo.user.req;
 
+import cn.com.pism.phoenix.models.vo.user.PmnxUserVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author perccyking
  * @since 24-09-22 21:25
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Schema(description = "用户保存请求参数")
-public class PmnxUserSaveReqVo {
+public class PmnxUserSaveReqVo extends PmnxUserVo {
 
-    /**
-     * 主键id
-     */
-    @Schema(description = "主键id")
-    private Long id;
-
-    /**
-     * 账号
-     */
-    @Schema(description = "账号")
-    private String account;
-
-    /**
-     * 邮箱
-     */
-    @Schema(description = "邮箱")
-    private String email;
 
     /**
      * 是否启用
