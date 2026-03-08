@@ -1,9 +1,9 @@
 package cn.com.pism.phoenix.core.config.swagger.converter;
 
+import cn.com.pism.phoenix.annotations.serialize.DictEnumSerialize;
 import cn.com.pism.phoenix.models.enums.DictEnum;
 import cn.com.pism.phoenix.models.jackson.serializer.DictEnumSerializer;
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.core.converter.AnnotatedType;
 import io.swagger.v3.core.converter.ModelConverter;
 import io.swagger.v3.core.converter.ModelConverterContext;
@@ -11,8 +11,10 @@ import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.providers.ObjectMapperProvider;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.annotation.JsonSerialize;
 
 import java.lang.annotation.Annotation;
 import java.util.Iterator;
@@ -51,7 +53,7 @@ public class PmnxDictEnumSerializerConverter implements PmnxModelConverter {
             return next(type, context, chain);
         }
 
-        return buildDictEnumSchema(rawClass);
+        return buildDictEnumSchema(rawClass, getDictEnumSerializeAnnotation(type.getCtxAnnotations()));
     }
 
     private boolean isDictEnum(Class<?> cls) {
@@ -72,18 +74,33 @@ public class PmnxDictEnumSerializerConverter implements PmnxModelConverter {
         return false;
     }
 
-    private Schema<?> buildDictEnumSchema(Class<?> enumClass) {
+    private DictEnumSerialize getDictEnumSerializeAnnotation(Annotation[] annotations) {
+        if (annotations == null) {
+            return null;
+        }
+
+        for (Annotation annotation : annotations) {
+            if (annotation instanceof DictEnumSerialize dictEnumSerialize) {
+                return dictEnumSerialize;
+            }
+        }
+        return null;
+    }
+
+    private Schema<?> buildDictEnumSchema(Class<?> enumClass, DictEnumSerialize annotation) {
+
+        boolean hasWrapperAnnotation = annotation != null;
 
         ObjectSchema schema = new ObjectSchema();
 
         StringSchema keySchema = new StringSchema();
-        keySchema.setDescription("枚举key");
+        keySchema.setDescription(hasWrapperAnnotation && StringUtils.isNotBlank(annotation.keyDesc()) ? annotation.keyDesc() : "枚举key");
 
         StringSchema valueSchema = new StringSchema();
-        valueSchema.setDescription("枚举值");
+        valueSchema.setDescription(hasWrapperAnnotation && StringUtils.isNotBlank(annotation.valueDesc()) ? annotation.valueDesc() : "枚举值");
 
-        schema.addProperty("k", keySchema);
-        schema.addProperty("v", valueSchema);
+        schema.addProperty(hasWrapperAnnotation && StringUtils.isNotBlank(annotation.keyName()) ? annotation.keyName() : "k", keySchema);
+        schema.addProperty(hasWrapperAnnotation && StringUtils.isNotBlank(annotation.valueName()) ? annotation.valueName() : "v", valueSchema);
 
         schema.setDescription(enumClass.getSimpleName());
 
