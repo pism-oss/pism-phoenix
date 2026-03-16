@@ -88,6 +88,7 @@ public class PmnxUserServiceImpl extends ServiceImpl<PmnxUserMapper, PmnxUser> i
         }
         if (pmnxUser == null) {
             pmnxUser = new PmnxUser();
+            pmnxUser.setCreateTime(System.currentTimeMillis());
         }
 
         //账号唯一校验
@@ -100,15 +101,19 @@ public class PmnxUserServiceImpl extends ServiceImpl<PmnxUserMapper, PmnxUser> i
             throw new BizException("账号已存在");
         }
 
-        pmnxUser.setAccount(reqVo.getAccount());
-        pmnxUser.setEmail(reqVo.getEmail());
-        if (reqVo.getEnabled() != null) {
-//            pmnxUser.setStatus(reqVo.getEnabled());
-        } else if (pmnxUser.getId() == null) {
-//            pmnxUser.setEnabled(Boolean.TRUE);
-        }
+        pmnxUser.setAccount(reqVo.getAccount())
+                .setNickname(reqVo.getNickname())
+                .setRealName(reqVo.getRealName())
+                .setAvatarUrl(reqVo.getAvatarUrl())
+                .setGender(reqVo.getGender())
+                .setEmail(reqVo.getEmail())
+                .setStatus(reqVo.getStatus());
 
-        updateById(pmnxUser);
+        if (reqVo.getId() == null) {
+            save(pmnxUser);
+        } else {
+            updateById(pmnxUser);
+        }
 
     }
 

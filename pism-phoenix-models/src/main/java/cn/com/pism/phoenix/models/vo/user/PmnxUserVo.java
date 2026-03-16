@@ -66,10 +66,4 @@ public class PmnxUserVo {
     @Schema(description = "用户状态")
     @DictEnumWrapper
     private UserStatusEnum status;
-
-    /**
-     * 创建时间
-     */
-    @Schema(description = "创建时间")
-    private Long createTime;
 }

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
  * @author perccyking
  * @since 24-08-25 01:59
  */
-@Component
+//@Component
 @Slf4j
-@Aspect
+//@Aspect
 public class MybatisFillAspect extends EntityFillAspect {
 
     @Override
@@ -29,7 +29,10 @@ public class MybatisFillAspect extends EntityFillAspect {
                 //实体主键id为空，并且没有设置创建时间，对创建时间补充，注：实体更新的时候，有主键id可能没有创建时间
                 if (comEntity.getId() == null && comEntity.getCreateTime() == null) {
                     comEntity.setCreateTime(currentTime);
+                    comEntity.setCreateBy(0L);
                 }
+                comEntity.setUpdateTime(currentTime);
+                comEntity.setUpdateBy(0L);
             } catch (Exception e) {
                 log.error(e.getMessage());
             }

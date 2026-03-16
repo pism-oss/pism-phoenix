@@ -14,11 +14,4 @@ import lombok.EqualsAndHashCode;
 @Schema(description = "用户保存请求参数")
 public class PmnxUserSaveReqVo extends PmnxUserVo {
 
-
-    /**
-     * 是否启用
-     */
-    @Schema(description = "是否启用")
-    private Boolean enabled;
-
 }
