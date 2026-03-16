@@ -39,12 +39,6 @@ public class PmnxUser extends ComEntity {
     private String email;
 
     /**
-     * 密码
-     */
-    @TableField(value = "`password`")
-    private String password;
-
-    /**
      * 用户昵称
      */
     @TableField(value = "nickname")

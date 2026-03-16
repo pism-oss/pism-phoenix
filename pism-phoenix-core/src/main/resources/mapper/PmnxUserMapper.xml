@@ -26,7 +26,6 @@
         <!--@mbg.generated-->
         id,
         account,
-        `password`,
         nickname,
         real_name,
         avatar_url,
