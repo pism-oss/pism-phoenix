@@ -6,7 +6,6 @@
         <!--@Table pmnx_user-->
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="account" jdbcType="VARCHAR" property="account"/>
-        <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
         <result column="real_name" jdbcType="VARCHAR" property="realName"/>
         <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl"/>
