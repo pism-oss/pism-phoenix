@@ -30,10 +30,10 @@ public class PmnxMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        long currentTimeMillis = System.currentTimeMillis();
-        Long loginId = AuthUtil.getLoginId();
         Object deleted = getFieldValByName(FIELD_DELETED, metaObject);
         if (deleted != null) {
+            long currentTimeMillis = System.currentTimeMillis();
+            Long loginId = AuthUtil.getLoginId();
             if ((Boolean) deleted) {
                 // 已删除
                 strictInsertFill(metaObject, FIELD_DELETE_BY, Long.class, loginId);
