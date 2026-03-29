@@ -16,7 +16,7 @@ public class AuthUtil {
     }
 
     public static Long getLoginId() {
-        // 可以考虑对当前方法做本地缓存优化
+        // 可以考虑对当前方法做本地缓存优化，保存同一个线程中不会多次访问redis
         return FunctionUtil.catchRun(StpUtil::getLoginIdAsLong, UNKNOWN_USER);
     }
 }
