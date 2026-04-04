@@ -134,18 +134,14 @@ public class PmnxUserServiceImpl extends ServiceImpl<PmnxUserMapper, PmnxUser> i
         }
         List<Long> ids = reqVo.getIds();
 
-        //逻辑删除用户
-//        lambdaUpdate()
-//                .in(PmnxUser::getId, ids)
-//                .set(PmnxUser::isDeleted, true)
-//                .update();
+        // 删除用户
         removeByIds(ids);
 
         //逻辑删除用户角色关系
-//        pmnxUserRoleService.lambdaUpdate()
-//                .in(PmnxUserRole::getUserId, ids)
-//                .set(PmnxUserRole::isDeleted, true)
-//                .update();
+        pmnxUserRoleService.lambdaUpdate()
+                .in(PmnxUserRole::getUserId, ids)
+                .set(PmnxUserRole::isDeleted, true)
+                .update();
     }
 
     /**

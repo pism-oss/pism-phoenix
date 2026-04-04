@@ -1,5 +1,6 @@
 package cn.com.pism.phoenix.core.config.mybatis;
 
+import cn.com.pism.phoenix.core.config.mybatis.plugin.LogicDeletedInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class PmnxMybatisPlusConfig {
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        // 逻辑删除插件
         interceptor.addInnerInterceptor(logicDeletedInnerInterceptor);
         // 添加防全表更新插件
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
