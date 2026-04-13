@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <revision>0.0.1</revision>
+        <revision>0.0.1-dev</revision>
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -134,12 +134,6 @@
                 <artifactId>swagger-core-jakarta</artifactId>
                 <version>2.2.44</version>
             </dependency>
-
-<!--            <dependency>-->
-<!--                <groupId>com.github.xiaoymin</groupId>-->
-<!--                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>-->
-<!--                <version>4.5.0</version>-->
-<!--            </dependency>-->
 
             <dependency>
                 <groupId>com.baomidou</groupId>

@@ -1,7 +1,6 @@
 package cn.com.pism.phoenix.models.vo.page;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,21 +20,18 @@ public class PageReqVo<T> {
     private T param;
 
     /**
-     * 页码
+     * 翻页方向，true:向前，false:向后
      */
-    @Schema(description = "页码", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    @NotNull(message = "页码不能为空")
-    private Long page;
+    @Schema(description = "是否向前翻页", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "true")
+    private Boolean forward = Boolean.TRUE;
 
     /**
      * 分页大小
      */
-    @Schema(description = "分页大小", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
-    @NotNull(message = "分页大小不能为空")
-    private Long size;
+    @Schema(description = "分页大小", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "10")
+    private Long size = 20L;
 
-    public PageReqVo(Long page, Long size) {
-        this.page = page;
-        this.size = size;
-    }
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    private Long id;
+
 }

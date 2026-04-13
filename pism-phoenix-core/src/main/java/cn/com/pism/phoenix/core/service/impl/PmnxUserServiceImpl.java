@@ -1,5 +1,6 @@
 package cn.com.pism.phoenix.core.service.impl;
 
+import cn.com.pism.phoenix.core.config.mybatis.plugin.CursorPage;
 import cn.com.pism.phoenix.core.entity.PmnxUser;
 import cn.com.pism.phoenix.core.entity.PmnxUserRole;
 import cn.com.pism.phoenix.core.mapper.PmnxUserMapper;
@@ -30,8 +31,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PmnxUserServiceImpl extends ServiceImpl<PmnxUserMapper, PmnxUser> implements PmnxUserService {
 
-    private static final String DEFAULT_PASSWORD = "123456";
-
     private final PmnxUserRoleService pmnxUserRoleService;
 
     /**
@@ -61,7 +60,7 @@ public class PmnxUserServiceImpl extends ServiceImpl<PmnxUserMapper, PmnxUser> i
      */
     @Override
     public Page<PmnxUserPageRespVo> page(PageReqVo<PmnxUserPageReqVo> reqVo) {
-        Page<PmnxUserPageRespVo> page = new Page<>(reqVo.getPage(), reqVo.getSize());
+        CursorPage<PmnxUserPageRespVo> page = new CursorPage<>(reqVo.getForward(), reqVo.getSize(), reqVo.getId());
         page.setRecords(baseMapper.page(page, reqVo.getParam()));
         return page;
     }
@@ -70,6 +69,10 @@ public class PmnxUserServiceImpl extends ServiceImpl<PmnxUserMapper, PmnxUser> i
      * <p>
      * 保存用户
      * </p>
+     * <ul>
+     *     <li>账号生成功能，用户可以自定义账号的生成策略，也可以手动输入，有手动和自动两种</li>
+     *     <li>生成后管理员可以选择，对用户的信息进行更新，或者发送邀请链接，由用户激活更新</li>
+     * </ul>
      * by perccyking
      *
      * @param reqVo : 请求参数
@@ -156,6 +159,6 @@ public class PmnxUserServiceImpl extends ServiceImpl<PmnxUserMapper, PmnxUser> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void resetPassword(PmnxUserResetPasswordReqVo reqVo) {
-
+        // doNothing
     }
 }

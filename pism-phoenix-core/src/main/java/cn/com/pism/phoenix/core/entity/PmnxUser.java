@@ -60,6 +60,7 @@ public class PmnxUser extends ComEntity {
      * 性别 0-未知 1-男 2-女
      */
     @TableField(value = "gender")
+    @Builder.Default
     private UserGenerEnum gender = UserGenerEnum.UNKNOWN;
 
     /**
@@ -72,6 +73,7 @@ public class PmnxUser extends ComEntity {
      * 状态 1-正常 2-禁用 3-冻结
      */
     @TableField(value = "`status`")
+    @Builder.Default
     private UserStatusEnum status = UserStatusEnum.NORMAL;
 
     public void statusCheck() {

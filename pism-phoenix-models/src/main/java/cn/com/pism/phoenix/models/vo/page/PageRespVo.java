@@ -17,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 public class PageRespVo<T> {
 
-
     /**
      * 查询数据列表
      */
@@ -25,36 +24,15 @@ public class PageRespVo<T> {
     private List<T> records = Collections.emptyList();
 
     /**
-     * 总数
-     */
-    @Schema(description = "数据总行数")
-    private long total = 0;
-
-    /**
      * 每页显示条数，默认 10
      */
     @Schema(description = "每页显示条数，默认 10")
     private long size = 10;
 
-    /**
-     * 当前页
-     */
-    @Schema(description = "当前页")
-    private long current = 1;
-
-    /**
-     * 总页数
-     */
-    @Schema(description = "总页数")
-    private long pages;
-
     public PageRespVo(Page<T> page) {
         if (page != null) {
             this.records = page.getRecords();
-            this.total = page.getTotal();
             this.size = page.getSize();
-            this.current = page.getCurrent();
-            this.pages = page.getPages();
         }
     }
 

@@ -10,6 +10,7 @@ import cn.com.pism.phoenix.models.vo.user.req.PmnxUserSaveReqVo;
 import cn.com.pism.phoenix.models.vo.user.resp.PmnxUserPageRespVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class PmnxUserController {
 
     @Operation(description = "用户列表-分页")
     @PostMapping("/page")
-    public PageRespVo<PmnxUserPageRespVo> page(@RequestBody PageReqVo<PmnxUserPageReqVo> reqVo) {
+    public PageRespVo<PmnxUserPageRespVo> page(@RequestBody @Valid PageReqVo<PmnxUserPageReqVo> reqVo) {
         return PageRespVo.of(pmnxUserService.page(reqVo));
     }
 
